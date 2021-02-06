@@ -1,0 +1,55 @@
+.header{
+    padding-top: 25%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+}
+
+.signup-form{
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.logo{
+    width: 90px;
+    height: 100px;
+    position: absolute;
+}
+
+.title{
+    padding-left: 28%;
+    font-family: Roboto;
+    font-weight: bold;
+    font-style: normal;
+    text-align: left;
+    font-size: 250%;
+    line-height: 68px;
+    letter-spacing: 0em;
+
+    color: #000000;
+}
+
+ion-label, ion-button{
+    font-family: Roboto;
+    font-style: normal;
+
+    color: #000000;
+}
+
+ion-label{
+    font-weight: normal;
+    padding-left: 35%;
+    text-align: center;
+}
+
+ion-button{
+    font-weight: bold;
+    padding-left: 21%;
+    text-align: center;
+    font-size: 200%;
+}
+
+ion-icon{
+    width: 200px;
+    height: 200px;
+}
+

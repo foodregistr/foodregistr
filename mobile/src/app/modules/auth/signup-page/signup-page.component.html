@@ -1,6 +1,15 @@
 <ion-content>
-  <img src="logo.svg"> 
-  <h3>
-      FoodRegistr
-  </h3>
-<ion-content>
+  <div class="header">
+    <img src="assets/icon/logo.svg" class="logo"> 
+    <h2 class="title">FoodRegistr</h2>
+  </div>
+  <form class="signup-form" (ngSubmit)="onSubmit()">
+    <text-input-field class="input" icon="mail-outline" placeholder="E-mail" type="email" (keyup)="setEmail($event)"></text-input-field>
+    <text-input-field class= "input" icon="person-outline" placeholder="Name" type="text" (keyup)="setName($event)"></text-input-field>
+    <password-input-field class="input" placeholder="Password" (keyup)="setPassword($event)"></password-input-field>
+    <password-input-field class="input" placeholder="Repeat Password" (keyup)="setRepeatPassword($event)"></password-input-field>
+    <ion-button fill="clear" type="submit" size="large" color="dark" strong>Sign Up</ion-button>
+  </form>
+  
+  <ion-label routerLink="../login" routerLinkActive="active">I have an account</ion-label>
+</ion-content>
