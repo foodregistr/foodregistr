@@ -9,7 +9,7 @@ export class TextInputFieldComponent implements OnInit {
 
   @Input() icon : String;
   @Input() placeholder : String;
-
+  @Input() type: String;
 
   constructor() { }
 

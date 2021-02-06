@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,13 +9,15 @@ import { AuthService } from '../auth.service';
 })
 export class SignupPageComponent implements OnInit {
 
+  submited : boolean = false;
+  invalid : boolean = false;
   password : String = "";
   email : String = "";
   name : String = "";
   repeatPassword : String = "";
 
 
-  constructor(private authService : AuthService) { 
+  constructor(private authService : AuthService, private router : Router) { 
   }
 
   ngOnInit() {}
@@ -32,9 +35,21 @@ export class SignupPageComponent implements OnInit {
     this.name = event.target.value
   }
 
-  signup(){
-    this.authService.signup(this.password, this.email, this.name)
-    console.log(this.password )
+  onSubmit(){
+    
+    this.submited = true;
+
+    if(this.repeatPassword == "" || this.password == "" || this.repeatPassword != this.password){
+      this.invalid = true;
+      return;
+    } else {
+      this.invalid = false
+    }
+
+    if(!this.invalid){
+      this.authService.signup(this.password, this.email, this.name)
+      this.router.navigate(["../../day"])
+    }
   }
   
 }
