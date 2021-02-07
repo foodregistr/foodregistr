@@ -9,6 +9,13 @@ import { AuthService } from '../auth.service';
 })
 export class SignupPageComponent implements OnInit {
 
+  emailVisibility = true  
+  signoEmailVisibility = false
+  nameVisibility = false
+  passVisibility = false
+  reapatPassVisibility = false
+  matchVisibility = false
+
   submited : boolean = false;
   invalid : boolean = false;
   password : String = "";
@@ -35,20 +42,18 @@ export class SignupPageComponent implements OnInit {
     this.name = event.target.value
   }
 
-  onSubmit(){
-    
-    this.submited = true;
+  onSubmit(){    
+    //this.submited = true;
 
-    if(this.repeatPassword == "" || this.password == "" || this.repeatPassword != this.password){
-      this.invalid = true;
-      return;
-    } else {
-      this.invalid = false
-    }
-
-    if(!this.invalid){
+    if(!(this.repeatPassword == "" || this.password == "" || this.repeatPassword != this.password)){ 
       this.authService.signup(this.password, this.email, this.name)
-      this.router.navigate(["../../day"])
+      this.router.navigate(["../../day"]) 
+    }
+  }
+
+  visibility(){
+    if(this.email == ""){
+      return ""
     }
   }
   

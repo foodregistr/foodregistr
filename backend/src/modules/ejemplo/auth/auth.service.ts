@@ -7,7 +7,7 @@ import { User } from './user'
 export class AuthService extends FireService {
 
     public async signup(user : User): Promise<any>{
-      const snapshot = await this.FireAuth.createUser({email: user.email, password: user.password, displayName: user.name}).catch(err => {
+      const snapshot = await this.FireAuth.createUser({email: user.email, password: user.password, displayName: user.name}).catch( () => {
         throw new InvalidUserException("Invalid User")
       })
     }
