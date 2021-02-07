@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { InvalidUserException } from 'src/exceptions/InvalidUserException';
+import { FireService } from 'src/fire.service';
 import { User } from './user'
 
 @Injectable()
-export class AuthService  {
+export class AuthService extends FireService {
 
     public async signup(user : User): Promise<any>{
-
+      const snapshot = await this.FireAuth.createUser({email: user.email, password: user.password, displayName: user.name}).catch(err => {
+        throw new InvalidUserException("Invalid User")
+      })
     }
 /*
   public async getEjemplos(): Promise<any> {

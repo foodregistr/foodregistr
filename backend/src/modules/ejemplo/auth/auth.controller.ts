@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
-import { Controller, Delete, Get, Inject, Post, Put, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller, Delete, Get, HttpStatus, Inject, Post, Put, Req, Res } from '@nestjs/common';
+import { Request, Response} from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -9,8 +9,16 @@ export class AuthController {
   private authService!: AuthService;
 
   @Post()
-  signup(@Req() req: Request): Promise<string> {
-    return this.authService.signup(req.body);
+  signup(@Req() req: Request, @Res() res: Response): Promise<string> {
+    try{
+      res.status(HttpStatus.CREATED)
+      return this.authService.signup(req.body);
+      
+    } catch(err){
+      res.status(HttpStatus.CONFLICT)
+      return Promise.reject(err.message)
+    }
+    
   }
 
 
