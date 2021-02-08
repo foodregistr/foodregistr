@@ -9,15 +9,12 @@ import { AuthService } from '../auth.service';
 })
 export class SignupPageComponent implements OnInit {
 
-  emailVisibility = true  
-  signoEmailVisibility = false
+  emailVisibility = false  
   nameVisibility = false
   passVisibility = false
-  reapatPassVisibility = false
+  repeatPassVisibility = false
   matchVisibility = false
 
-  submited : boolean = false;
-  invalid : boolean = false;
   password : String = "";
   email : String = "";
   name : String = "";
@@ -32,29 +29,42 @@ export class SignupPageComponent implements OnInit {
   setPassword(event: any){
     this.password = event.target.value
   }
+
   setRepeatPassword(event : any){
     this.repeatPassword = event.target.value
   }
+
   setEmail(event){
     this.email = event.target.value
   }
+
   setName(event){
     this.name = event.target.value
   }
 
   onSubmit(){    
-    //this.submited = true;
-
-    if(!(this.repeatPassword == "" || this.password == "" || this.repeatPassword != this.password)){ 
+    this.verifyField();
+    if(this.allFieldsItsOK()){ 
       this.authService.signup(this.password, this.email, this.name)
-      this.router.navigate(["../../day"]) 
+      .then( () => {
+        this.router.navigate(["../../day"], {skipLocationChange: true})
+      } )
+      .catch ( (err) => {console.log( err.error.message)}
+      )
     }
   }
 
-  visibility(){
-    if(this.email == ""){
-      return ""
-    }
+  allFieldsItsOK(){
+    return  (!this.emailVisibility && !this.repeatPassVisibility
+            && !this.passVisibility && !this.nameVisibility && !this.matchVisibility)
+  }
+  verifyField(){
+    this.emailVisibility = this.email == ""
+    this.repeatPassVisibility = this.repeatPassword == ""
+    this.passVisibility = this.password == ""
+    this.nameVisibility = this.name == ""
+    this.matchVisibility = (!this.repeatPassVisibility) && this.repeatPassword != this.password
+
   }
   
 }

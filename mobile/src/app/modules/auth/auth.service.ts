@@ -5,7 +5,7 @@ export class AuthService {
     constructor(private http : HttpClient) {}
 
     public signup(password: String, email: String, name: String) : any{
-        this.http.post("localhost:8080/auth", {password, email, name})
+        return this.http.post("http://localhost:8080/auth", {password, email, name}).toPromise()
 
     }
 

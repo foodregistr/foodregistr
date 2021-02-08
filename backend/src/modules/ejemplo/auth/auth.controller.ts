@@ -9,17 +9,18 @@ export class AuthController {
   private authService!: AuthService;
 
   @Post()
-  signup(@Req() req: Request, @Res() res: Response): Promise<string> {
-    try{
+  signup(@Req() req: Request, @Res() res: Response){
+    this.authService.signup(req.body)
+    .then(() => {
       res.status(HttpStatus.CREATED)
-      return this.authService.signup(req.body);
-      
-    } catch(err){
+      res.json({mesage : "ok"})
+    }) 
+    .catch((err) => {
       res.status(HttpStatus.CONFLICT)
-      return Promise.reject(err.message)
-    }
-    
+      res.json({message : err.message})
+    })
   }
+    
 
 
 }

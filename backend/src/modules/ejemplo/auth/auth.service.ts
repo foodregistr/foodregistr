@@ -6,10 +6,8 @@ import { User } from './user'
 @Injectable()
 export class AuthService extends FireService {
 
-    public async signup(user : User): Promise<any>{
-      const snapshot = await this.FireAuth.createUser({email: user.email, password: user.password, displayName: user.name}).catch( () => {
-        throw new InvalidUserException("Invalid User")
-      })
+    public signup(user : User): Promise<any>{
+      return this.FireAuth.createUser({email: user.email, password: user.password, displayName: user.name})
     }
 /*
   public async getEjemplos(): Promise<any> {
