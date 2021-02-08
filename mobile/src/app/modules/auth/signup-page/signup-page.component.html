@@ -5,14 +5,14 @@
   </div>
   <form class="signup-form">
     <text-input-field class="input" icon="mail-outline" placeholder="E-mail" type="email" (keyup)="setEmail($event)"></text-input-field>
-    <ion-label *ngIf="emailVisibility"> Completa este campo </ion-label>
-    <ion-label *ngIf="signoEmailVisibility"> Incluye signo @ en la direccion del correo </ion-label>
+    <ion-label *ngIf="emailVisibility"> The email address is improperly formatted </ion-label>
+    <ion-label *ngIf="duplicatedEmailVisibility"> {{email}} already exists </ion-label>    
 
     <text-input-field class= "input" icon="person-outline" placeholder="Name" type="text" (keyup)="setName($event)"></text-input-field>
     <ion-label *ngIf="nameVisibility"> Completa este campo </ion-label>
 
     <password-input-field class="input" placeholder="Password" (keyup)="setPassword($event)"></password-input-field>
-    <ion-label *ngIf="passVisibility"> Completa este campo </ion-label>
+    <ion-label *ngIf="passVisibility"> The password must be a string with at least 6 characters.</ion-label>
 
     <password-input-field class="input" placeholder="Repeat Password" (keyup)="setRepeatPassword($event)"></password-input-field>
     <ion-label *ngIf="repeatPassVisibility"> Completa este campo </ion-label>

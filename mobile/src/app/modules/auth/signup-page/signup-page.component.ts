@@ -14,6 +14,7 @@ export class SignupPageComponent implements OnInit {
   passVisibility = false
   repeatPassVisibility = false
   matchVisibility = false
+  duplicatedEmailVisibility = false
 
   password : String = "";
   email : String = "";
@@ -49,8 +50,19 @@ export class SignupPageComponent implements OnInit {
       .then( () => {
         this.router.navigate(["../../day"], {skipLocationChange: true})
       } )
-      .catch ( (err) => {console.log( err.error.message)}
-      )
+      .catch ( (err) => {
+        switch(err.error.message){
+          case "The email address is improperly formatted.":
+            this.emailVisibility = true
+            break;
+          case "The password must be a string with at least 6 characters.":
+            this.passVisibility = true
+            break;
+          case "The email address is already in use by another account.":
+            this.duplicatedEmailVisibility = true
+            break;
+        }
+      })
     }
   }
 
