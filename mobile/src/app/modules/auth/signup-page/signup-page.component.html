@@ -28,7 +28,7 @@
         <password-input-field placeholder="Repeat Password" (keyup)="setRepeatPassword($event)"></password-input-field>
         <div class="fieldError">
           <ion-label *ngIf="repeatPassVisibility"> Complete this field </ion-label>
-          <ion-label *ngIf="matchVisibility"> Las contraseñas no coinciden </ion-label>
+          <ion-label *ngIf="matchVisibility"> The passwords dosn't match </ion-label>
         </div>
       </div>
     </div>

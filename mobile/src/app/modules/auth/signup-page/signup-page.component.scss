@@ -4,16 +4,22 @@ ion-content{
 .header{
     padding-top: 90px;
     padding-bottom: 5%;
-    padding-left: 8%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    display: flex;
+    padding-bottom: 20px;
 }
 
 .fields{
     padding-left: 8%;
     padding-right: 10%;
+    font-style: normal;
+
 }
 
 .field{
-    padding-bottom: 20px;
+    padding-bottom: 13px;
     align-content: center;
 }
 
@@ -27,27 +33,15 @@ ion-content{
 .logo{
     width: 90px;
     height: 100px;
-    position: absolute;
 }
 
 .title{
-    padding-top: 16px;
-    padding-left: 25%;
-    font-family: Roboto;
     font-weight: bold;
     font-style: normal;
     text-align: left;
-    font-size: 42px;
-    line-height: 68px;
+    font-size: 36px;
     letter-spacing: 0em;
-
-    color: #000000;
-}
-
-.fields, .submit-button{
-    font-family: Roboto;
-    font-style: normal;
-
+    padding-top: 20px;
     color: #000000;
 }
 
@@ -60,6 +54,7 @@ ion-content{
 }
 .redirect-button{
     font-weight: normal;
+    
 }
 .submit{
     width: min-content;
@@ -69,15 +64,14 @@ ion-content{
 }
 
 .submit-button{
+    font-style: normal;
     font-weight: bold;
+
+    color: #000000;
     text-align: left;
     font-size: 48px;
     height: 80px;
+    color: #000000;
 
-}
-
-ion-icon{
-    width: 200px;
-    height: 200px;
 }
 
