@@ -48,7 +48,7 @@ export class SignupPageComponent implements OnInit {
     if(this.allFieldsItsOK()){ 
       this.authService.signup(this.password, this.email, this.name)
       .then( () => {
-        this.router.navigate(["../../day"], {skipLocationChange: true})
+        this.router.navigate(["../../day"])
       } )
       .catch ( (err) => {
         switch(err.error.message){

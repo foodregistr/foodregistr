@@ -1,12 +1,27 @@
+ion-content{
+    --ion-background-color:#E5E5E5;
+}
 .header{
-    padding-top: 25%;
+    padding-top: 90px;
     padding-bottom: 5%;
-    padding-left: 10%;
+    padding-left: 8%;
 }
 
-.signup-form{
+.fields{
     padding-left: 8%;
     padding-right: 10%;
+}
+
+.field{
+    padding-bottom: 20px;
+    align-content: center;
+}
+
+.fieldError{
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    color: crimson;
 }
 
 .logo{
@@ -16,36 +31,49 @@
 }
 
 .title{
-    padding-left: 28%;
+    padding-top: 16px;
+    padding-left: 25%;
     font-family: Roboto;
     font-weight: bold;
     font-style: normal;
     text-align: left;
-    font-size: 250%;
+    font-size: 42px;
     line-height: 68px;
     letter-spacing: 0em;
 
     color: #000000;
 }
 
-ion-label, ion-button{
+.fields, .submit-button{
     font-family: Roboto;
     font-style: normal;
 
     color: #000000;
 }
 
-ion-label{
+.redirect{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;;
+
+}
+.redirect-button{
     font-weight: normal;
-    padding-left: 35%;
-    text-align: center;
+}
+.submit{
+    width: min-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
 }
 
-ion-button{
+.submit-button{
     font-weight: bold;
-    padding-left: 21%;
-    text-align: center;
-    font-size: 200%;
+    text-align: left;
+    font-size: 48px;
+    height: 80px;
+
 }
 
 ion-icon{
