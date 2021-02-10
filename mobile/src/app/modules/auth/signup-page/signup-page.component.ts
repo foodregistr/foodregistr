@@ -16,10 +16,10 @@ export class SignupPageComponent implements OnInit {
   matchVisibility = false
   duplicatedEmailVisibility = false
 
-  password : String = "";
-  email : String = "";
-  name : String = "";
-  repeatPassword : String = "";
+  password : string = "";
+  email : string = "";
+  name : string = "";
+  repeatPassword : string = "";
 
 
   constructor(private authService : AuthService, private router : Router) { 
@@ -43,26 +43,26 @@ export class SignupPageComponent implements OnInit {
     this.name = event.target.value
   }
 
-  onSubmit(){    
+  async onSubmit(){    
     this.verifyField();
     if(this.allFieldsItsOK()){ 
-      this.authService.signup(this.password, this.email, this.name)
-      .then( () => {
-        this.router.navigate(["../../day"])
-      } )
-      .catch ( (err) => {
-        switch(err.error.message){
-          case "The email address is improperly formatted.":
+      try {
+        var uid = await this.authService.signup(this.password, this.email, this.name)
+        this.router.navigate(["../../day", {uid}]) 
+      }
+      catch(err) {
+        switch(err.message){
+          case "The email address is badly formatted.":
             this.emailVisibility = true
             break;
-          case "The password must be a string with at least 6 characters.":
+          case "Password should be at least 6 characters":
             this.passVisibility = true
             break;
           case "The email address is already in use by another account.":
             this.duplicatedEmailVisibility = true
             break;
         }
-      })
+      }
     }
   }
 

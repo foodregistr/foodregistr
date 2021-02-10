@@ -11,9 +11,7 @@ export class AuthService extends FireService {
     }
 
     public login(email: string): Promise<any>{//, password : string
-      this.FireAuth.getUserByEmail(email).then(
-        (x) => console.log(x)
-      )
+      awaconsole.log(this.FireAuth.getUserByEmail(email))
       return Promise.resolve()
     }
 

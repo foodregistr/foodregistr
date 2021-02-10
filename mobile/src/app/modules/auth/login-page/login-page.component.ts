@@ -11,8 +11,8 @@ export class LoginPageComponent implements OnInit {
  
   invalidFields = false
 
-  password : String = "";
-  email : String = "";
+  password : string = "";
+  email : string = "";
 
 
   constructor(private authService : AuthService, private router : Router) { 
@@ -28,16 +28,15 @@ export class LoginPageComponent implements OnInit {
     this.email = event.target.value
   }
 
-  onSubmit(){    
-    this.authService.login(this.password, this.email)
-    .then( () => {
-      this.router.navigate(["../../day"])
-    } )
-    .catch ( (err) => {
-      console.log(err.error.message)
+  async onSubmit(){
+    try {
+      var uid = await this.authService.login(this.password, this.email)
+      console.log(uid)
+      this.router.navigate(["../../day", {uid}])
+    }    
+    catch (err) {
       this.invalidFields = true
-
-    })
+    }
   }
 
  

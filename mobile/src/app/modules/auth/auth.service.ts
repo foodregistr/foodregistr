@@ -1,17 +1,44 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import firebase from "firebase/app";
+import { promise } from "protractor";
+
+var fireAuth = firebase.auth();
+
 @Injectable()
 export class AuthService {
     constructor(private http : HttpClient) {}
 
-    public signup(password: String, email: String, name: String) : any{
-        return this.http.post("http://localhost:8080/auth/signup", {password, email, name}).toPromise()
+    // public signup(password: String, email: String, name: String) : any{
+    //     return this.http.post("http://localhost:8080/auth/signup", {password, email, name}).toPromise()
 
+    // }
+
+    // public login(password: String, email: String) : any{
+    //     return this.http.post("http://localhost:8080/auth/login", {password, email}).toPromise()
+    // }
+
+    public signup(password: string, email: string, name : string) : any{
+        return fireAuth.createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+            res.user.updateProfile({displayName : name})
+            return res.user.uid
+        })
+        .catch((err) => {
+            throw new Error(err)
+        })
     }
 
-    public login(password: String, email: String) : any{
-        return this.http.post("http://localhost:8080/auth/login", {password, email}).toPromise()
+    public login(password: string, email: string) : any{
+        return fireAuth.signInWithEmailAndPassword(email, password)
+        .then((res) =>{ 
+            return res.user.uid
+        })
+        .catch((err) => {
+            throw new Error(err)
+        })
     }
+
 
     public getHello(): any {
         return {
