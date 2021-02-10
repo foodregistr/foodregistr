@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -6,12 +8,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
+ 
+  invalidFields = false
 
-  constructor() { }
+  password : String = "";
+  email : String = "";
+
+
+  constructor(private authService : AuthService, private router : Router) { 
+  }
 
   ngOnInit() {}
 
-  hello(){
-    console.log("hello")
+  setPassword(event: any){
+    this.password = event.target.value
   }
+
+  setEmail(event){
+    this.email = event.target.value
+  }
+
+  onSubmit(){    
+    this.authService.login(this.password, this.email)
+    .then( () => {
+      this.router.navigate(["../../day"])
+    } )
+    .catch ( (err) => {
+      console.log(err.error.message)
+      this.invalidFields = true
+
+    })
+  }
+
+ 
+  
 }

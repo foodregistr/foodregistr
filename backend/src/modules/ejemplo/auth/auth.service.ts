@@ -9,6 +9,14 @@ export class AuthService extends FireService {
     public signup(user : User): Promise<any>{
       return this.FireAuth.createUser({email: user.email, password: user.password, displayName: user.name})
     }
+
+    public login(email: string): Promise<any>{//, password : string
+      this.FireAuth.getUserByEmail(email).then(
+        (x) => console.log(x)
+      )
+      return Promise.resolve()
+    }
+
 /*
   public async getEjemplos(): Promise<any> {
     const snapshot = await this.FireDAO.collection('test');

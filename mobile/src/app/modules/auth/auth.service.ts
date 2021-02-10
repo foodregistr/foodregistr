@@ -5,12 +5,12 @@ export class AuthService {
     constructor(private http : HttpClient) {}
 
     public signup(password: String, email: String, name: String) : any{
-        return this.http.post("http://localhost:8080/auth", {password, email, name}).toPromise()
+        return this.http.post("http://localhost:8080/auth/signup", {password, email, name}).toPromise()
 
     }
 
-    public login() : any{
-        console.log("hola")
+    public login(password: String, email: String) : any{
+        return this.http.post("http://localhost:8080/auth/login", {password, email}).toPromise()
     }
 
     public getHello(): any {

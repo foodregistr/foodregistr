@@ -1,3 +1,5 @@
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { UiModule } from "../ui/ui.module";
@@ -15,7 +17,7 @@ export const loginRoutes: Routes = [
 @NgModule({
     declarations: [LoginPageComponent],
     exports: [LoginPageComponent],
-    imports: [RouterModule.forChild(loginRoutes), UiModule],
+    imports: [RouterModule.forChild(loginRoutes), UiModule, HttpClientModule, CommonModule],
     providers: [AuthService]
   })
   export class LoginModule {}

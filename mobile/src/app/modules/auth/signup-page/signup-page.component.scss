@@ -1,8 +1,14 @@
 ion-content{
     --ion-background-color:#E5E5E5;
 }
+.container{ 
+    padding-top: 15%;
+    padding-bottom: 12%;
+
+}
+
 .header{
-    padding-top: 90px;
+   // padding-top: 90px;
     padding-bottom: 5%;
     margin-left: auto;
     margin-right: auto;
@@ -19,15 +25,17 @@ ion-content{
 }
 
 .field{
-    padding-bottom: 13px;
+   // padding-bottom: 1px;
     align-content: center;
 }
 
 .fieldError{
     margin-left: auto;
     margin-right: auto;
-    padding-top: 10px;
+    padding-top: 2.5px;
+    padding-bottom: 6px;
     color: crimson;
+    font-size: 13px;
 }
 
 .logo{
