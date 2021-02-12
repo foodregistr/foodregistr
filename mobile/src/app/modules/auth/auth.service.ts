@@ -13,7 +13,7 @@ export class AuthService {
         return this.fireAuth.createUserWithEmailAndPassword(email, password)
         .then((res) => {
             res.user.updateProfile({displayName : name})
-            return res.user.uid
+            debugger; return res.user.refreshToken
         })
         .catch((err) => {
             throw new Error(err)
@@ -23,7 +23,7 @@ export class AuthService {
     public login(password: string, email: string) : Promise<string> {
         return this.fireAuth.signInWithEmailAndPassword(email, password)
         .then((res) =>{ 
-            return res.user.uid
+            return res.user.refreshToken
         })
         .catch((err) => {
             throw new Error(err)

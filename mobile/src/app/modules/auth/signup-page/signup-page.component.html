@@ -9,27 +9,27 @@
         <div class="field email-field">
           <text-input-field icon="mail-outline" placeholder="E-mail" type="email" (keyup)="setEmail($event)"></text-input-field>
           <div class="fieldError">
-            <ion-label *ngIf="emailVisibility" > The email address is improperly formatted </ion-label>
-            <ion-label *ngIf="duplicatedEmailVisibility"> {{email}} already exists </ion-label>
+            <ion-label *ngIf="showNullEmailErr"> The email address is improperly formatted </ion-label>
+            <ion-label *ngIf="showRegisteredEmailErr"> {{email}} is already registered. </ion-label>
           </div>
         </div>
         <div class="field">
           <text-input-field  icon="person-outline" placeholder="Name" type="text" (keyup)="setName($event)"></text-input-field>
           <div class="fieldError">
-            <ion-label *ngIf="nameVisibility"> Complete this field </ion-label>
+            <ion-label *ngIf="showNullNameErr">Please complete this field</ion-label>
           </div>
         </div>
         <div class="field">
           <password-input-field placeholder="Password" (keyup)="setPassword($event)"></password-input-field>
           <div class="fieldError">
-            <ion-label *ngIf="passVisibility"> The password must be a string with at least 6 characters.</ion-label>
+            <ion-label *ngIf="showShortPassErr">Password must be at least 6 characters.</ion-label>
           </div>
         </div>
         <div class="field">
           <password-input-field placeholder="Repeat Password" (keyup)="setRepeatPassword($event)"></password-input-field>
           <div class="fieldError">
-            <ion-label *ngIf="repeatPassVisibility"> Complete this field </ion-label>
-            <ion-label *ngIf="matchVisibility"> The passwords don't match </ion-label>
+            <ion-label *ngIf="showRepeatPassErr">Please complete this field</ion-label>
+            <ion-label *ngIf="showPassMatchErr">Passwords don't match.</ion-label>
           </div>
         </div>
       </div>

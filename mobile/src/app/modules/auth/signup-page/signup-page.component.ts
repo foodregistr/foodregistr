@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -7,75 +7,73 @@ import { AuthService } from '../auth.service';
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.scss'],
 })
-export class SignupPageComponent implements OnInit {
+export class SignupPageComponent {
 
-  emailVisibility = false  
-  nameVisibility = false
-  passVisibility = false
-  repeatPassVisibility = false
-  matchVisibility = false
-  duplicatedEmailVisibility = false
+  showNullEmailErr = false  
+  showNullNameErr = false
+  showShortPassErr = false
+  showRepeatPassErr = false
+  showMatchPassErr = false
+  showRegisteredEmailErr = false
 
-  password : string = "";
-  email : string = "";
-  name : string = "";
-  repeatPassword : string = "";
+  password  = "";
+  email  = "";
+  name  = "";
+  repeatPassword  = "";
 
 
-  constructor(private authService : AuthService, private router : Router) { 
-  }
+  constructor(private authService : AuthService, private router : Router) {}
 
-  ngOnInit() {}
-
-  setPassword(event: any){
+  setPassword(event: any): void {
     this.password = event.target.value
   }
 
-  setRepeatPassword(event : any){
+  setRepeatPassword(event : any): void {
     this.repeatPassword = event.target.value
   }
 
-  setEmail(event){
+  setEmail(event): void {
     this.email = event.target.value
   }
 
-  setName(event){
+  setName(event): void {
     this.name = event.target.value
   }
 
-  async onSubmit(){    
+  async onSubmit(): Promise<void> {    
     this.verifyField();
-    if(this.allFieldsItsOK()){ 
+    if (this.allFieldsAreOK()) { 
       try {
-        var uid = await this.authService.signup(this.password, this.email, this.name)
-        this.router.navigate(["../../day", {uid}]) 
-      }
-      catch(err) {
+        const refreshToken: string = await this.authService.signup(this.password, this.email, this.name)
+        localStorage.setItem('token', refreshToken)
+        this.router.navigate(["../../day"]) 
+      } catch(err) {
         switch(err.message){
-          case "The email address is badly formatted.":
-            this.emailVisibility = true
+          case "Error: The email address is badly formatted.":
+            this.showRegisteredEmailErr = true
             break;
-          case "Password should be at least 6 characters":
-            this.passVisibility = true
+          case "Error: Password should be at least 6 characters":
+            this.showShortPassErr = true
             break;
-          case "The email address is already in use by another account.":
-            this.duplicatedEmailVisibility = true
+          case "Error: The email address is already in use by another account.":
+            this.showRegisteredEmailErr = true
             break;
         }
       }
     }
   }
 
-  allFieldsItsOK(){
-    return  (!this.emailVisibility && !this.repeatPassVisibility
-            && !this.passVisibility && !this.nameVisibility && !this.matchVisibility)
+  private allFieldsAreOK(): boolean {
+    return (!this.showNullEmailErr && !this.showRepeatPassErr
+            && !this.showShortPassErr && !this.showNullNameErr && !this.showMatchPassErr)
   }
-  verifyField(){
-    this.emailVisibility = this.email == ""
-    this.repeatPassVisibility = this.repeatPassword == ""
-    this.passVisibility = this.password == ""
-    this.nameVisibility = this.name == ""
-    this.matchVisibility = (!this.repeatPassVisibility) && this.repeatPassword != this.password
+
+  private verifyField(): void {
+    this.showNullEmailErr = this.email == ""
+    this.showRepeatPassErr = this.repeatPassword == ""
+    this.showShortPassErr = this.password == ""
+    this.showNullNameErr = this.name == ""
+    this.showMatchPassErr = (!this.showRepeatPassErr) && this.repeatPassword != this.password
 
   }
   
