@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
@@ -14,7 +15,7 @@ export const dayRoutes: Routes = [
 @NgModule({
     declarations: [FoodRegistryComponent, DayPageComponent],
     exports: [FoodRegistryComponent, DayPageComponent],
-    imports: [RouterModule.forChild(dayRoutes), CommonModule],
+    imports: [RouterModule.forChild(dayRoutes), CommonModule, ReactiveFormsModule],
     providers: [DayService]
   })
   export class DayModule {}

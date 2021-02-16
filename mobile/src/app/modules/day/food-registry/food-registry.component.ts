@@ -1,7 +1,6 @@
 import { DayService } from './../day.service'
 import { Component, OnInit } from '@angular/core'
 import { Camera, CameraResultType } from '@capacitor/core'
-import resetImageOrientation from 'orientation-exif-blob'
 @Component({
   selector: 'food-registry',
   templateUrl: './food-registry.component.html',
@@ -18,7 +17,7 @@ export class FoodRegistryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.hello = this.dayService.getHello();
+    this.hello = this.dayService.getHello()
   }
 
   toggleUploadPhoto(): void {

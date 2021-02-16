@@ -72,6 +72,11 @@ ion-card {
 }
 
 .food-description ion-card-content {
-    height: 7em;
+    height: 8.9em;
     width: 17em;
+}
+
+ion-textarea {
+    --padding-top: -10px;
+    font-size: 0.9em;
 }
