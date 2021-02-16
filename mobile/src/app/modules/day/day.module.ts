@@ -1,4 +1,4 @@
-import { AuthGuard } from './../../guards/auth.guard';
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { DayPageComponent } from "./day-page/day-page.component";
@@ -14,7 +14,7 @@ export const dayRoutes: Routes = [
 @NgModule({
     declarations: [FoodRegistryComponent, DayPageComponent],
     exports: [FoodRegistryComponent, DayPageComponent],
-    imports: [RouterModule.forChild(dayRoutes),],
+    imports: [RouterModule.forChild(dayRoutes), CommonModule],
     providers: [DayService]
   })
   export class DayModule {}
