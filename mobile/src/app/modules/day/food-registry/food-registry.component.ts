@@ -1,33 +1,32 @@
+import { FoodRegistry } from './FoodRegistry';
 import { DayService } from './../day.service'
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Camera, CameraResultType } from '@capacitor/core'
 @Component({
   selector: 'food-registry',
   templateUrl: './food-registry.component.html',
   styleUrls: ['./food-registry.component.scss'],
 })
-export class FoodRegistryComponent implements OnInit {
+export class FoodRegistryComponent {
 
-  public hello
+  public imageBlobUrl: string;
 
-  public photoUrl: string;
+  public description: string;
+
+  public foodType: string;
 
   constructor(
     private dayService: DayService
   ) { }
 
-  ngOnInit(): void {
-    this.hello = this.dayService.getHello()
-  }
-
   toggleUploadPhoto(): void {
-    if (!this.photoUrl) {
+    if (!this.imageBlobUrl) {
       this.takePhoto()
     }
   }
 
   removePhoto(): void {
-    this.photoUrl = ''
+    this.imageBlobUrl = ''
   }
 
   private async takePhoto(): Promise<void> {
@@ -41,6 +40,16 @@ export class FoodRegistryComponent implements OnInit {
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    this.photoUrl = image.webPath
+    this.imageBlobUrl = image.webPath
+  }
+
+  public submit(): Promise<any> {
+    const foodRegistry: FoodRegistry = {
+      description: this.description || 'Descripcion de prueba',
+      date: new Date(),
+      foodType: this.foodType || 'breakfast'
+    }
+
+    return this.dayService.registerFood(foodRegistry, this.imageBlobUrl)
   }
 }
