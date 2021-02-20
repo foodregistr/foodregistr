@@ -6,19 +6,19 @@
 
 <ion-card class='food-photo' (click)='toggleUploadPhoto()'>
   <ion-card-content>
-        <div class="photo-container photo-frame"  *ngIf="!imageBlobUrl; else photo">
-          <ion-icon name="camera-outline" class='photo-icon'></ion-icon>
-          <p class="ion-text-center photo-p">Click here to upload your <br>Breakfast</p>
+    <div class="photo-container photo-frame"  *ngIf="!imageBlobUrl; else photo">
+      <ion-icon name="camera-outline" class='photo-icon'></ion-icon>
+      <p class="ion-text-center photo-p">Click here to upload your <br>Breakfast</p>
+    </div>
+    <ng-template #photo>
+      <div class="photo-container" (click)='removePhoto()'>
+        <div class="badge-photo-remove">
+          <ion-icon name="close-circle-outline" class="badge-photo-remove-icon"></ion-icon>
         </div>
-        <ng-template #photo>
-          <div class="photo-container" (click)='removePhoto()'>
-            <div class="badge-photo-remove">
-              <ion-icon name="close-circle-outline" class="badge-photo-remove-icon"></ion-icon>
-            </div>
-          <ion-img [src]="[imageBlobUrl]" class="photo">
-          </ion-img>
-          </div>
-      </ng-template>
+      <ion-img [src]="[imageBlobUrl]" class="photo">
+      </ion-img>
+      </div>
+    </ng-template>
   </ion-card-content>
 </ion-card>
 
