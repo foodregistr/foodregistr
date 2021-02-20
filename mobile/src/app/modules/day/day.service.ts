@@ -18,7 +18,7 @@ export class DayService {
         this.validateFoodRegistryNotEmpty(foodRegistry, blobUrl)
 
         const uid = (await this.fireAuth.currentUser).uid
-        const imageId = await this.saveImageFromBlob(uid, blobUrl)
+        const imageId = await this.saveImageFromBlob(uid, foodRegistry.date.toString(), blobUrl)
         
         return this.fireDAO.collection(`${foodRegistry.date.toString()}-${uid}`)
             .doc(foodRegistry.foodType)
@@ -31,11 +31,11 @@ export class DayService {
         }
     }
 
-    private async saveImageFromBlob(uid: string, blobUrl: string): Promise<string> {
+    private async saveImageFromBlob(uid: string, date : string, blobUrl: string): Promise<string> {
         let imageId = '';
         if (blobUrl) {
             const blob = await this.utilsService.getBlob(blobUrl)
-            const snapshot = await this.fireStorage.ref(uid).put(blob)
+            const snapshot = await this.fireStorage.ref(uid).child(date).put(blob)
             imageId = snapshot.ref.fullPath;
         }
         return imageId

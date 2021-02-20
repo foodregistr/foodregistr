@@ -1,7 +1,7 @@
 import { FoodRegistry } from './FoodRegistry';
 import { DayService } from './../day.service'
 import { Component } from '@angular/core'
-import { Camera, CameraResultType } from '@capacitor/core'
+import { Camera, CameraPhoto, CameraResultType } from '@capacitor/core'
 @Component({
   selector: 'food-registry',
   templateUrl: './food-registry.component.html',
@@ -19,9 +19,17 @@ export class FoodRegistryComponent {
     private dayService: DayService
   ) { }
 
+  public setDescription(event : any){
+    this.description = event.target.value
+  }
+
   toggleUploadPhoto(): void {
     if (!this.imageBlobUrl) {
-      this.takePhoto()
+      this.takePhoto().then( res => {
+        this.imageBlobUrl = res.webPath
+      }).catch( () => {
+        this.removePhoto()
+      });
     }
   }
 
@@ -29,18 +37,17 @@ export class FoodRegistryComponent {
     this.imageBlobUrl = ''
   }
 
-  private async takePhoto(): Promise<void> {
-    const image = await Camera.getPhoto({
+  private takePhoto() : Promise<CameraPhoto>{
+    return Camera.getPhoto({
       quality: 50,
       allowEditing: true,
       resultType: CameraResultType.Uri,
       correctOrientation: true,
-    });
+    })
     // image.webPath will contain a path that can be set as an image src.
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-    this.imageBlobUrl = image.webPath
   }
 
   public submit(): Promise<any> {
