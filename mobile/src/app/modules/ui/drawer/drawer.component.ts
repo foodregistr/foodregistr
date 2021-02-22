@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'drawer',
@@ -7,14 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrawerComponent implements OnInit {
 
-  constructor() { }
+  username : string
+
+  constructor(private router : Router) { 
+    this.username = localStorage.getItem('username')
+  }
 
 
   ngOnInit() {
   }
 
   logOut(): void{
-    console.log("log out")
+    localStorage.clear()
+    this.router.navigate(['/auth/login'])
   }
 
   changePassword(): void{
