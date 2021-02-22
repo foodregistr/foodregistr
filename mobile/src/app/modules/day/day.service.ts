@@ -19,14 +19,14 @@ export class DayService {
 
         const uid = (await this.fireAuth.currentUser).uid
         const imageId = await this.saveImageFromBlob(uid, foodRegistry.date.toString(), blobUrl)
-        
-        return this.fireDAO.collection(`${foodRegistry.date.toString()}-${uid}`)
-            .doc(foodRegistry.foodType)
-            .set({description: foodRegistry.description, imageId})
+        const dateString = this.utilsService.formatDate(foodRegistry.date)
+        return this.fireDAO.collection(`${uid}`)
+            .doc(dateString)
+            .set({foodRegistries: [{description: foodRegistry.description, imageId, foodType: foodRegistry.foodType}]})
     }
 
     private validateFoodRegistryNotEmpty(foodRegistry: FoodRegistry, blobUrl: string) {
-        if (foodRegistry.description === undefined || blobUrl === undefined) {
+        if (foodRegistry.description === undefined && blobUrl === undefined) {
             throw new Error('No food description or image provided.')
         }
     }

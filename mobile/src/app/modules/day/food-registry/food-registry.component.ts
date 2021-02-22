@@ -52,7 +52,7 @@ export class FoodRegistryComponent {
 
   public submit(): Promise<any> {
     const foodRegistry: FoodRegistry = {
-      description: this.description || 'Descripcion de prueba',
+      description: this.description,
       date: new Date(),
       foodType: this.foodType || 'breakfast'
     }

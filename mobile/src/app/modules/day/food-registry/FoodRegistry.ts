@@ -1,7 +1,7 @@
 export interface FoodRegistry {
     id?: string;
-    date?: Date;
+    date: Date;
     imageId?: string;
     description?: string;
-    foodType?: string;
+    foodType: string;
 }
