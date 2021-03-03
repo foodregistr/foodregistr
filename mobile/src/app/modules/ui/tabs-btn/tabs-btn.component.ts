@@ -31,9 +31,4 @@ export class TabsBtnComponent implements OnInit {
         break
     }
   }
-
-  navigate(): void {
-    console.log('WIP')
-  }
-
 }

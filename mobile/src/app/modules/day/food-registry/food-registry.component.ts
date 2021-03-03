@@ -10,12 +10,18 @@ import { Camera, CameraPhoto, CameraResultType } from '@capacitor/core'
 })
 export class FoodRegistryComponent implements OnInit {
 
-  public imageBlobUrl: string;
+  public imageBlobUrl: string
 
-  public description: string;
+  public description: string
 
   @Input()
-  public foodType: string;
+  public date: string
+
+  @Input()
+  public foodType: string
+
+  @Input()
+  public foodRegistry: FoodRegistry
 
   constructor(
     private dayService: DayService,
@@ -23,14 +29,17 @@ export class FoodRegistryComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.foodType = this.utilsService.capitalize(this.foodType)
+    this.foodType = this.utilsService.capitalize(this.foodRegistry.foodType)
+    if (this.foodRegistry.description || this.foodRegistry.imageId) {
+      // Set descripcion, imageId y date acá adentro
+    }
   }
 
   public setDescription(event : any): void {
     this.description = event.target.value
   }
 
-  toggleUploadPhoto(): void {
+  public toggleUploadPhoto(): void {
     if (!this.imageBlobUrl) {
       this.takePhoto().then( res => {
         this.imageBlobUrl = res.webPath
@@ -40,7 +49,7 @@ export class FoodRegistryComponent implements OnInit {
     }
   }
 
-  removePhoto(): void {
+  public removePhoto(): void {
     this.imageBlobUrl = ''
   }
 
@@ -65,5 +74,13 @@ export class FoodRegistryComponent implements OnInit {
     }
 
     return this.dayService.registerFood(foodRegistry, this.imageBlobUrl)
+  }
+
+  public navigateToNextDay(): void {
+    console.log('WIP')
+  }
+
+  public navigateToPrevDay(): void {
+    console.log('WIP')
   }
 }

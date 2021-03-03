@@ -2,6 +2,8 @@ import { FoodRegistryComponent } from './../food-registry/food-registry.componen
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core'
 import { IonSlides, ToastController } from '@ionic/angular';
 import { DayService } from '../day.service';
+import { FoodRegistry } from '../food-registry/FoodRegistry';
+import { UtilsService } from '../../utils/utils.service';
 @Component({
   selector: 'app-day-page',
   templateUrl: './day-page.component.html',
@@ -10,22 +12,49 @@ import { DayService } from '../day.service';
 export class DayPageComponent implements OnInit {
 
   @ViewChildren(FoodRegistryComponent)
-  foodRegistries: QueryList<FoodRegistryComponent>
+  foodRegistryComponents: QueryList<FoodRegistryComponent>
 
-  @ViewChild('slides') slider: IonSlides;
+  @ViewChild('slides') slider: IonSlides
+
+  foodRegistries: FoodRegistry[]
 
   foodTypes: string[]
 
-  constructor(private toast: ToastController, private dayService: DayService) {}
+  dayDate: string
+
+  constructor(
+    private toast: ToastController, 
+    private dayService: DayService,
+    private utilsService: UtilsService) {}
 
   ngOnInit(): void {
-    this.foodTypes = this.dayService.getFoodTypes()
     //this.dayService.resetDailyFoodRegistries(this.foodTypes)
+    this.foodTypes = this.dayService.getFoodTypes()
+    this.dayDate = this.utilsService.formatDate(new Date())
+    this.getFoodRegistriesFromToday().then((data: any) => {
+      this.foodRegistries = this.mapPreviousRegistries(data.foodRegistries)
+    })
+  }
+  
+  private mapPreviousRegistries(
+    prevRegistries: FoodRegistry[]): FoodRegistry[] {
+      const mappedRegistries: any[] = []
+      for (const type of this.foodTypes) {
+        const aRegistry = 
+        prevRegistries
+        ? prevRegistries.find(registry => registry.foodType === type)
+        : undefined
+
+        aRegistry 
+        ? mappedRegistries.push(aRegistry) 
+        : mappedRegistries.push({foodType: type})
+      }
+    return mappedRegistries
   }
 
   public async submit(): Promise<void> {
     this.slider.getActiveIndex().then(index => {
-      this.foodRegistries.toArray()[index].submit().then( () => {
+      this.foodRegistryComponents.toArray()[index].submit().then( () => {
         this.successMsg()
       }).catch(err => {
         console.error(err)
@@ -70,6 +99,16 @@ export class DayPageComponent implements OnInit {
 
   public prevSlide(): void {
     this.slider.slidePrev();
+  }
+
+  private async getFoodRegistriesFromToday(): Promise<FoodRegistry[]> {
+    return this.dayService.getFoodRegistriesFromDay(new Date())
+  }
+
+  public getFoodRegistry(foodType: string): FoodRegistry {
+    return this.foodRegistries.find((registry) => {
+      return registry.foodType === foodType
+    })
   }
 
 }

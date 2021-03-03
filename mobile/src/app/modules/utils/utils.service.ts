@@ -9,7 +9,9 @@ export class UtilsService {
   }
 
   public formatDate(date: Date): string {
-    return date.toISOString().split('T')[0]
+    return new Date(
+      date.getTime() - (date.getTimezoneOffset() * 60000)
+      ).toISOString().split('T')[0]
   }
 
   public capitalize(str: string): string {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'tabs',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./tabs.component.scss'],
 })
 export class TabsComponent {
+
+  constructor(private menu: MenuController) {}
 
   public goToToday() {
     console.log('WIP')
@@ -19,8 +22,8 @@ export class TabsComponent {
     console.log('WIP')
   }
 
-  public openSidebar() {
-    console.log('WIP')
+  public async openSidebar(): Promise<void> {
+    await this.menu.open()
   }
 
 }

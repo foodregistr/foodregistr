@@ -4,6 +4,8 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { UtilsService } from "../utils/utils.service";
 import { FoodRegistry } from "./food-registry/FoodRegistry";
+import { Store } from "../utils/store.service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class DayService {
@@ -13,10 +15,12 @@ export class DayService {
         private fireDAO: AngularFirestore,
         private fireAuth: AngularFireAuth,
         private fireStorage: AngularFireStorage,
-        private utilsService: UtilsService
+        private utilsService: UtilsService,
+        private store: Store,
+        private router: Router
     ) {}
 
-    getFoodTypes(): string[] {
+    public getFoodTypes(): string[] {
         return ['breakfast','lunch','snack','dinner']
     }
 
@@ -65,6 +69,19 @@ export class DayService {
             foodRegistries: this.dailyFoodRegistries
         })
     }
+
+    public navigateToDay(date: Date) {
+        this.router.navigate(['day', date])
+    }
+
+    public async getFoodRegistriesFromDay(date: Date): Promise<FoodRegistry[]> {
+        const uid = this.store.get('uid')
+        const dateString = this.utilsService.formatDate(date)
+        return (
+            await this.fireDAO.collection(`${uid}`)
+            .doc(dateString).ref.get()
+        ).data() as FoodRegistry[]
+    } 
 
     private validateFoodRegistryNotEmpty(foodRegistry: FoodRegistry, blobUrl: string) {
         if (foodRegistry.description === undefined && blobUrl === undefined) {
