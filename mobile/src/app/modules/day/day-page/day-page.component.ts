@@ -32,7 +32,7 @@ export class DayPageComponent implements OnInit {
     this.foodTypes = this.dayService.getFoodTypes()
     this.dayDate = this.utilsService.formatDate(new Date())
     this.getFoodRegistriesFromToday().then((data: any) => {
-      this.foodRegistries = this.mapPreviousRegistries(data.foodRegistries)
+      this.foodRegistries = this.mapPreviousRegistries(data)
     })
   }
   

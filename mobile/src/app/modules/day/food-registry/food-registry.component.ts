@@ -1,18 +1,23 @@
 import { UtilsService } from './../../utils/utils.service';
 import { FoodRegistry } from './FoodRegistry';
 import { DayService } from './../day.service'
-import { Component, Input, OnInit } from '@angular/core'
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { Camera, CameraPhoto, CameraResultType } from '@capacitor/core'
+import { IonTextarea } from '@ionic/angular';
 @Component({
   selector: 'food-registry',
   templateUrl: './food-registry.component.html',
   styleUrls: ['./food-registry.component.scss'],
 })
-export class FoodRegistryComponent implements OnInit {
+export class FoodRegistryComponent implements OnInit, AfterViewInit {
 
   public imageBlobUrl: string
 
   public description: string
+
+  public image: string
+
+  @ViewChild('description') textArea: IonTextarea;
 
   @Input()
   public date: string
@@ -27,12 +32,24 @@ export class FoodRegistryComponent implements OnInit {
     private dayService: DayService,
     private utilsService: UtilsService
   ) {}
+
+  ngAfterViewInit(){
+    this.textArea.value = this.foodRegistry.description || null
+  }
   
   ngOnInit(): void {
     this.foodType = this.utilsService.capitalize(this.foodRegistry.foodType)
-    if (this.foodRegistry.description || this.foodRegistry.imageId) {
-      // Set descripcion, imageId y date acá adentro
+    this.description = this.foodRegistry.description || null
+    if(this.foodRegistry.imageId){
+      this.dayService.getImage(this.foodRegistry.imageId).then(url => {
+        this.utilsService.downloadImage(url)
+        this.image = url
+      }).catch(err => console.log(err))
     }
+  }
+
+  public getImage() : string{
+    return this.imageBlobUrl || this.image || ""
   }
 
   public setDescription(event : any): void {
@@ -40,17 +57,15 @@ export class FoodRegistryComponent implements OnInit {
   }
 
   public toggleUploadPhoto(): void {
-    if (!this.imageBlobUrl) {
       this.takePhoto().then( res => {
         this.imageBlobUrl = res.webPath
-      }).catch( () => {
-        this.removePhoto()
-      });
-    }
+      }).catch( err => console.log(err));
   }
 
   public removePhoto(): void {
     this.imageBlobUrl = ''
+    this.image = ''
+    this.foodRegistry.imageId = ''
   }
 
   private takePhoto() : Promise<CameraPhoto>{
@@ -67,10 +82,12 @@ export class FoodRegistryComponent implements OnInit {
   }
 
   public submit(): Promise<any> {
+    console.log(this.imageBlobUrl)
     const foodRegistry: FoodRegistry = {
       description: this.description,
       date: new Date(),
-      foodType: this.utilsService.decapitalize(this.foodType)
+      foodType: this.utilsService.decapitalize(this.foodType),
+      imageId: this.foodRegistry.imageId,
     }
 
     return this.dayService.registerFood(foodRegistry, this.imageBlobUrl)

@@ -24,6 +24,10 @@ export class DayService {
         return ['breakfast','lunch','snack','dinner']
     }
 
+    public getImage(imageId: string): Promise<string>{
+        const uid = this.store.get('uid')
+        return this.fireStorage.ref(imageId).getDownloadURL().toPromise()
+    }
     public resetDailyFoodRegistries(foodTypes: string[]): void {
         this.dailyFoodRegistries = foodTypes.map((type) => { 
             return { foodType: type } 
@@ -42,7 +46,9 @@ export class DayService {
 
         const uid = (await this.fireAuth.currentUser).uid
         const dateString = this.utilsService.formatDate(foodRegistry.date)
-        foodRegistry.imageId = await this.saveImageFromBlob(uid, dateString, blobUrl, foodRegistry.foodType)
+        if(blobUrl){
+            foodRegistry.imageId = await this.saveImageFromBlob(uid, dateString, blobUrl, foodRegistry.foodType)
+        }
         foodRegistry.description = foodRegistry.description || ''
         const ref = this.fireDAO.collection(`${uid}`).doc(dateString).ref
         return this.fireDAO.firestore.runTransaction((transaction) => {
@@ -77,10 +83,10 @@ export class DayService {
     public async getFoodRegistriesFromDay(date: Date): Promise<FoodRegistry[]> {
         const uid = this.store.get('uid')
         const dateString = this.utilsService.formatDate(date)
-        return (
-            await this.fireDAO.collection(`${uid}`)
-            .doc(dateString).ref.get()
-        ).data() as FoodRegistry[]
+        return this.fireDAO.collection(`${uid}`).doc(dateString).get().toPromise().then(snapshot => {
+            return snapshot.get('foodRegistries') || []
+        })
+        
     } 
 
     private validateFoodRegistryNotEmpty(foodRegistry: FoodRegistry, blobUrl: string) {
@@ -90,12 +96,8 @@ export class DayService {
     }
 
     private async saveImageFromBlob(uid: string, date : string, blobUrl: string, foodtype: string): Promise<string> {
-        let imageId = '';
-        if (blobUrl) {
-            const blob = await this.utilsService.getBlob(blobUrl)
-            const snapshot = await this.fireStorage.ref(uid).child(date + "/" + foodtype).put(blob)
-            imageId = snapshot.ref.fullPath;
-        }
-        return imageId
+        const blob = await this.utilsService.getBlob(blobUrl)
+        const snapshot = await this.fireStorage.ref(uid).child(date + "/" + foodtype).put(blob)
+        return snapshot.ref.fullPath;
     }
 }

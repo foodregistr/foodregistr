@@ -8,6 +8,16 @@ export class UtilsService {
     return await fetch(blobUrl).then(r => r.blob());
   }
 
+  public downloadImage(url : string){
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function(event) {
+      var blob = xhr.response;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  }
+
   public formatDate(date: Date): string {
     return new Date(
       date.getTime() - (date.getTimezoneOffset() * 60000)
