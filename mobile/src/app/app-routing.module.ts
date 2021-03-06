@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'day',
-    pathMatch:   'full',
+    pathMatch:   'prefix',
     canActivate: [AuthGuard],
     loadChildren: () =>
     import('./modules/day/day.module').then(m => m.DayModule)

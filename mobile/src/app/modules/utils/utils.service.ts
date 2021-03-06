@@ -24,6 +24,11 @@ export class UtilsService {
       ).toISOString().split('T')[0]
   }
 
+  public stringToDate(dateString: string): Date{
+    const splitedString = dateString.split("-")
+    return new Date(splitedString[0] as unknown as number, splitedString[1] as unknown as number - 1, splitedString[2] as unknown as number)
+  }
+
   public capitalize(str: string): string {
     return str[0].toUpperCase() + str.slice(1);
   }

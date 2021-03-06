@@ -34,12 +34,12 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngAfterViewInit(){
-    this.textArea.value = this.foodRegistry.description || null
+    this.textArea.value = this.foodRegistry.description || ''
   }
   
   ngOnInit(): void {
     this.foodType = this.utilsService.capitalize(this.foodRegistry.foodType)
-    this.description = this.foodRegistry.description || null
+    this.description = this.foodRegistry.description || ''
     if(this.foodRegistry.imageId){
       this.dayService.getImage(this.foodRegistry.imageId).then(url => {
         this.utilsService.downloadImage(url)
@@ -63,9 +63,9 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   }
 
   public removePhoto(): void {
-    this.imageBlobUrl = ''
-    this.image = ''
-    this.foodRegistry.imageId = ''
+    this.imageBlobUrl = undefined
+    this.image = undefined
+    this.foodRegistry.imageId = undefined
   }
 
   private takePhoto() : Promise<CameraPhoto>{
@@ -81,11 +81,10 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
   }
 
-  public submit(): Promise<any> {
-    console.log(this.imageBlobUrl)
+  public submit(dateString: string): Promise<any> {
     const foodRegistry: FoodRegistry = {
       description: this.description,
-      date: new Date(),
+      date: dateString,
       foodType: this.utilsService.decapitalize(this.foodType),
       imageId: this.foodRegistry.imageId,
     }
@@ -94,10 +93,16 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   }
 
   public navigateToNextDay(): void {
-    console.log('WIP')
+    const date = this.utilsService.stringToDate(this.date)
+    date.setDate(date.getDate() + 1)
+    const nextDay = this.utilsService.formatDate(date)
+    this.dayService.navigateToDay(nextDay)
   }
 
   public navigateToPrevDay(): void {
-    console.log('WIP')
+    const date = this.utilsService.stringToDate(this.date)
+    date.setDate(date.getDate() - 1)
+    const nextDay = this.utilsService.formatDate(date)
+    this.dayService.navigateToDay(nextDay)
   }
 }

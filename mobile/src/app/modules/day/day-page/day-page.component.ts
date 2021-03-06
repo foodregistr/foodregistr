@@ -4,6 +4,7 @@ import { IonSlides, ToastController } from '@ionic/angular';
 import { DayService } from '../day.service';
 import { FoodRegistry } from '../food-registry/FoodRegistry';
 import { UtilsService } from '../../utils/utils.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-day-page',
   templateUrl: './day-page.component.html',
@@ -25,12 +26,13 @@ export class DayPageComponent implements OnInit {
   constructor(
     private toast: ToastController, 
     private dayService: DayService,
-    private utilsService: UtilsService) {}
+    private utilsService: UtilsService,
+    private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     //this.dayService.resetDailyFoodRegistries(this.foodTypes)
     this.foodTypes = this.dayService.getFoodTypes()
-    this.dayDate = this.utilsService.formatDate(new Date())
+    this.dayDate = this.route.snapshot.paramMap.get("date") || this.utilsService.formatDate(new Date())
     this.getFoodRegistriesFromToday().then((data: any) => {
       this.foodRegistries = this.mapPreviousRegistries(data)
     })
@@ -54,7 +56,7 @@ export class DayPageComponent implements OnInit {
 
   public async submit(): Promise<void> {
     this.slider.getActiveIndex().then(index => {
-      this.foodRegistryComponents.toArray()[index].submit().then( () => {
+      this.foodRegistryComponents.toArray()[index].submit(this.dayDate).then( () => {
         this.successMsg()
       }).catch(err => {
         console.error(err)
@@ -102,7 +104,7 @@ export class DayPageComponent implements OnInit {
   }
 
   private async getFoodRegistriesFromToday(): Promise<FoodRegistry[]> {
-    return this.dayService.getFoodRegistriesFromDay(new Date())
+    return this.dayService.getFoodRegistriesFromDay(this.dayDate)
   }
 
   public getFoodRegistry(foodType: string): FoodRegistry {
