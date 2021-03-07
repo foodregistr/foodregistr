@@ -8,7 +8,9 @@ import { MenuController } from '@ionic/angular';
 })
 export class TabsComponent {
 
-  constructor(private menu: MenuController) {}
+  constructor(
+    private menu: MenuController
+    ) {}
 
   public goToToday() {
     console.log('WIP')

@@ -3,7 +3,7 @@ import { FoodRegistry } from './FoodRegistry';
 import { DayService } from './../day.service'
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { Camera, CameraPhoto, CameraResultType } from '@capacitor/core'
-import { IonTextarea } from '@ionic/angular';
+import { IonTextarea, ToastController } from '@ionic/angular';
 @Component({
   selector: 'food-registry',
   templateUrl: './food-registry.component.html',
@@ -28,16 +28,20 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   @Input()
   public foodRegistry: FoodRegistry
 
+  public hasNextDay: boolean
+
   constructor(
     private dayService: DayService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private toast: ToastController,
   ) {}
 
-  ngAfterViewInit(){
+  ngAfterViewInit(): void {
     this.textArea.value = this.foodRegistry.description || ''
   }
   
   ngOnInit(): void {
+    this.hasNextDay = this.utilsService.formatDate(new Date()) > this.date
     this.foodType = this.utilsService.capitalize(this.foodRegistry.foodType)
     this.description = this.foodRegistry.description || ''
     if(this.foodRegistry.imageId){
@@ -68,7 +72,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
     this.foodRegistry.imageId = undefined
   }
 
-  private takePhoto() : Promise<CameraPhoto>{
+  private takePhoto(): Promise<CameraPhoto>{
     return Camera.getPhoto({
       quality: 50,
       allowEditing: true,
@@ -81,15 +85,20 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
   }
 
-  public submit(dateString: string): Promise<any> {
+  public submit(dateString: string): void {
     const foodRegistry: FoodRegistry = {
-      description: this.description,
-      date: dateString,
+      description: this.description || '',
+      date: dateString || this.utilsService.formatDate(new Date()),
       foodType: this.utilsService.decapitalize(this.foodType),
-      imageId: this.foodRegistry.imageId,
+      imageId: this.foodRegistry.imageId || '',
     }
 
-    return this.dayService.registerFood(foodRegistry, this.imageBlobUrl)
+    this.dayService.registerFood(foodRegistry, this.imageBlobUrl)
+      .then(() => this.successMsg())
+      .catch(err => {
+        console.error(err)
+        this.failedMsg()
+      })
   }
 
   public navigateToNextDay(): void {
@@ -104,5 +113,23 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
     date.setDate(date.getDate() - 1)
     const nextDay = this.utilsService.formatDate(date)
     this.dayService.navigateToDay(nextDay)
+  }
+
+  private async successMsg() {
+    const msg = await this.toast.create({
+      message: 'Saved food registry succesfuly!',
+      duration: 1500,
+      color: 'dark'
+    });
+    msg.present();
+  }
+
+  private async failedMsg() {
+    const msg = await this.toast.create({
+      message: 'Save failed. Try again later.',
+      duration: 1500,
+      color: 'dark'
+    });
+    msg.present();
   }
 }

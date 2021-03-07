@@ -24,7 +24,6 @@ export class DayPageComponent implements OnInit {
   dayDate: string
 
   constructor(
-    private toast: ToastController, 
     private dayService: DayService,
     private utilsService: UtilsService,
     private route: ActivatedRoute) {}
@@ -54,15 +53,15 @@ export class DayPageComponent implements OnInit {
     return mappedRegistries
   }
 
-  public async submit(): Promise<void> {
-    this.slider.getActiveIndex().then(index => {
-      this.foodRegistryComponents.toArray()[index].submit(this.dayDate).then( () => {
-        this.successMsg()
-      }).catch(err => {
-        console.error(err)
-        this.failedMsg()
-      })
-    })
+  // public async submit(): Promise<void> {
+  //   this.slider.getActiveIndex().then(index => {
+  //     this.foodRegistryComponents.toArray()[index].submit(this.dayDate).then( () => {
+  //       this.successMsg()
+  //     }).catch(err => {
+  //       console.error(err)
+  //       this.failedMsg()
+  //     })
+  //   })
     /*
     for (const foodRegistry of this.foodRegistries) {
       await foodRegistry.submit()
@@ -75,25 +74,7 @@ export class DayPageComponent implements OnInit {
         this.failedMsg()
       })
     */
-  }
-
-  private async successMsg() {
-    const msg = await this.toast.create({
-      message: 'Comida registrada con éxito!',
-      duration: 1500,
-      color: 'dark'
-    });
-    msg.present();
-  }
-
-  private async failedMsg() {
-    const msg = await this.toast.create({
-      message: 'Tu comida no pudo registrarse. :(',
-      duration: 1500,
-      color: 'dark'
-    });
-    msg.present();
-  }
+  // }
 
   public nextSlide(): void {
     this.slider.slideNext();
