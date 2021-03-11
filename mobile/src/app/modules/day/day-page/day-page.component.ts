@@ -1,5 +1,5 @@
 import { FoodRegistryComponent } from './../food-registry/food-registry.component';
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core'
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core'
 import { IonSlides, ToastController } from '@ionic/angular';
 import { DayService } from '../day.service';
 import { FoodRegistry } from '../food-registry/FoodRegistry';
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './day-page.component.html',
   styleUrls: ['./day-page.component.scss'],
 })
-export class DayPageComponent implements OnInit {
+export class DayPageComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FoodRegistryComponent)
   foodRegistryComponents: QueryList<FoodRegistryComponent>
@@ -26,7 +26,14 @@ export class DayPageComponent implements OnInit {
   constructor(
     private dayService: DayService,
     private utilsService: UtilsService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute) {
+      
+    }
+
+  ngAfterViewInit(){
+    const index = this.route.snapshot.queryParamMap.get("index") as unknown as number
+    this.slider.slideTo(index || 0)
+  }
 
   ngOnInit(): void {
     //this.dayService.resetDailyFoodRegistries(this.foodTypes)
@@ -35,6 +42,7 @@ export class DayPageComponent implements OnInit {
     this.getFoodRegistriesFromToday().then((data: any) => {
       this.foodRegistries = this.dayService.mapPreviousRegistries(data)
     })
+    
   }
 
 

@@ -4,8 +4,8 @@
     </ion-card-content>
 </ion-card>
 
-<ion-card class="food-photo">
-    <ion-card-content>
+<ion-card class="food-photo" (click)="navToFoodRegistry()">
+    <ion-card-content class="photo-card-content">
         <div class="photo-container photo-frame"  *ngIf="!image && !description; else photo">
             <ion-icon name="add-circle-outline" class='circle-icon'></ion-icon>
         </div>

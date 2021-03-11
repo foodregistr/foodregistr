@@ -1,5 +1,7 @@
 ion-card {
-    width: 20em;
+    width: 10em;
+    height: 3em;
+    margin: auto;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
 } 
@@ -47,7 +49,7 @@ ion-card {
     color: rgb(167, 167, 167);
 }
 
-ion-card-content {
+.photo-card-content{
     height: 8.9em;
     width: 17em;
 }

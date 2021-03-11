@@ -13,12 +13,12 @@ import { FoodViewComponent } from './food-view/food-view.component';
 
 export const dayRoutes: Routes = [
   {
-    path:      ':date',
-    component: DayViewPageComponent
-  },
-  {
     path:      'register/:date',
     component: DayPageComponent
+  },
+  {
+    path:      ':date',
+    component: DayViewPageComponent
   },
   {
     path:      'register',

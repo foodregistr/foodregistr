@@ -84,10 +84,10 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
   }
 
-  public submit(dateString: string): void {
+  public submit(): void {
     const foodRegistry: FoodRegistry = {
       description: this.description || '',
-      date: dateString || this.utilsService.formatDate(new Date()),
+      date: this.date,
       foodType: this.utilsService.decapitalize(this.foodType),
       imageId: this.foodRegistry.imageId || '',
     }

@@ -12,6 +12,7 @@ export class FoodViewComponent implements OnInit{
 
     @Input() foodType: string;
     @Input() food: FoodRegistry;
+    @Input() date: string;
 
     public image: string;
     public description: string;
@@ -31,6 +32,11 @@ export class FoodViewComponent implements OnInit{
 
     public content() : boolean{
         return !this.image && !this.description
+    }
+
+    public async navToFoodRegistry(){
+        const index = await this.dayService.getFoodTypes().indexOf(this.food.foodType)
+        this.dayService.navigateToDayRegistry(this.date, index)
     }
 
 }

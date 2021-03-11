@@ -26,13 +26,21 @@ export class DayNavComponent implements OnInit {
         const date = this.utilsService.stringToDate(this.date)
         date.setDate(date.getDate() + 1)
         const nextDay = this.utilsService.formatDate(date)
-        this.dayService.navigateToDay(nextDay, this.register)
+        if(this.register){
+            this.dayService.navigateToDayRegistry(nextDay, 0)
+        } else {
+            this.dayService.navigateToDayView(nextDay)
+        }
     }
 
     public navigateToPrevDay(): void {
         const date = this.utilsService.stringToDate(this.date)
         date.setDate(date.getDate() - 1)
         const nextDay = this.utilsService.formatDate(date)
-        this.dayService.navigateToDay(nextDay, this.register)
+        if(this.register){
+            this.dayService.navigateToDayRegistry(nextDay, 0)
+        } else {
+            this.dayService.navigateToDayView(nextDay)
+        }    
     }
 }
