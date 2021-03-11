@@ -33,25 +33,10 @@ export class DayPageComponent implements OnInit {
     this.foodTypes = this.dayService.getFoodTypes()
     this.dayDate = this.route.snapshot.paramMap.get("date") || this.utilsService.formatDate(new Date())
     this.getFoodRegistriesFromToday().then((data: any) => {
-      this.foodRegistries = this.mapPreviousRegistries(data)
+      this.foodRegistries = this.dayService.mapPreviousRegistries(data)
     })
   }
-  
-  private mapPreviousRegistries(
-    prevRegistries: FoodRegistry[]): FoodRegistry[] {
-      const mappedRegistries: any[] = []
-      for (const type of this.foodTypes) {
-        const aRegistry = 
-        prevRegistries
-        ? prevRegistries.find(registry => registry.foodType === type)
-        : undefined
 
-        aRegistry 
-        ? mappedRegistries.push(aRegistry) 
-        : mappedRegistries.push({foodType: type})
-      }
-    return mappedRegistries
-  }
 
   // public async submit(): Promise<void> {
   //   this.slider.getActiveIndex().then(index => {
