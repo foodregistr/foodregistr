@@ -48,8 +48,12 @@ export class DayService {
         })
     }
     
-    public navigateToDay(date: string): void {
-        this.router.navigate(['tabs/day', date])
+    public navigateToDay(date: string, foods: boolean): void {
+        if(foods){
+            this.router.navigate(['tabs/day/register', date])
+        } else {
+            this.router.navigate(['tabs/day', date])
+        }
     }
     
     public async getFoodRegistriesFromDay(dateString: string): Promise<FoodRegistry[]> {

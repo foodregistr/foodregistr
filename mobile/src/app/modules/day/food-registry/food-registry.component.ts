@@ -4,6 +4,7 @@ import { DayService } from './../day.service'
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { Camera, CameraPhoto, CameraResultType } from '@capacitor/core'
 import { IonTextarea, ToastController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'food-registry',
   templateUrl: './food-registry.component.html',
@@ -19,8 +20,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
 
   @ViewChild('description') textArea: IonTextarea;
 
-  @Input()
-  public date: string
+  date: string
 
   @Input()
   public foodType: string
@@ -28,12 +28,11 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   @Input()
   public foodRegistry: FoodRegistry
 
-  public hasNextDay: boolean
-
   constructor(
     private dayService: DayService,
     private utilsService: UtilsService,
     private toast: ToastController,
+    private route: ActivatedRoute
   ) {}
 
   ngAfterViewInit(): void {
@@ -41,7 +40,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   }
   
   ngOnInit(): void {
-    this.hasNextDay = this.utilsService.formatDate(new Date()) > this.date
+    this.date = this.route.snapshot.paramMap.get("date") || this.utilsService.formatDate(new Date())
     this.foodType = this.utilsService.capitalize(this.foodRegistry.foodType)
     this.description = this.foodRegistry.description || ''
     if(this.foodRegistry.imageId){
@@ -101,19 +100,6 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
       })
   }
 
-  public navigateToNextDay(): void {
-    const date = this.utilsService.stringToDate(this.date)
-    date.setDate(date.getDate() + 1)
-    const nextDay = this.utilsService.formatDate(date)
-    this.dayService.navigateToDay(nextDay)
-  }
-
-  public navigateToPrevDay(): void {
-    const date = this.utilsService.stringToDate(this.date)
-    date.setDate(date.getDate() - 1)
-    const nextDay = this.utilsService.formatDate(date)
-    this.dayService.navigateToDay(nextDay)
-  }
 
   private async successMsg() {
     const msg = await this.toast.create({

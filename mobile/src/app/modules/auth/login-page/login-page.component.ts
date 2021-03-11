@@ -29,7 +29,7 @@ export class LoginPageComponent {
     try {
       const {token, username, uid} = await this.authService.login(this.password, this.email)
       await this.store.setUserInfo(username, uid, token)
-      this.router.navigate(["../../day"])
+      this.router.navigate(["tabs/day"])
     } catch (err) {
       this.invalidFields = true
     }
