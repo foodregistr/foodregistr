@@ -1,11 +1,15 @@
 <ion-content style="--background: #f5f5f5;">
-    <day-nav [date]="dayDate" [register]="false"></day-nav>
+    <div class="day-nav-container">
+        <day-nav [date]="dayDate" [register]="false"></day-nav>
 
-    <div *ngFor="let food of foodRegistries">
-        <food-view 
-          [foodType]=food.foodType
-          [food]="food"
-          [date]="dayDate"
-        ></food-view>
+    </div>
+    <div  class="food-view-container">
+        <ng-container *ngFor="let food of foodRegistries">
+            <food-view 
+            [foodType]=food.foodType
+            [food]="food"
+            [date]="dayDate"
+          ></food-view>
+        </ng-container>
     </div>
 </ion-content>
