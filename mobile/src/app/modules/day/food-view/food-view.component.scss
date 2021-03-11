@@ -1,0 +1,58 @@
+ion-card {
+    width: 20em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+} 
+
+.food-photo {
+    width: 20em;
+    height: 20em;
+    margin: auto;
+}
+
+.food-photo ion-card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo-frame {
+    border: 5px dashed lightgray;
+}
+
+.photo-container {
+    width: 15em;
+    height: 15em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.photo {
+    object-fit: cover;
+    max-width: 15em;
+    max-height: 15em;
+    transform: scale(0.9, 0.9);
+}
+
+
+.photo-icon {
+    height: 64px;
+    width: 64px;
+    color: lightgray;
+}
+
+.photo-p {
+    color: rgb(167, 167, 167);
+}
+
+ion-card-content {
+    height: 8.9em;
+    width: 17em;
+}
+
+ion-icon {
+    font-size: 2.5em;
+    color: black;
+}

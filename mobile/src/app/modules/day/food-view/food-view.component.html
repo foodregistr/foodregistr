@@ -5,5 +5,17 @@
 </ion-card>
 
 <ion-card class="food-photo">
-    
+    <ion-card-content>
+        <div class="photo-container photo-frame"  *ngIf="!image && !description; else photo">
+            <ion-icon name="add-circle-outline" class='circle-icon'></ion-icon>
+        </div>
+        <div class="photo-container" *ngIf="!image && description">
+            <p class="ion-text-center photo-p">{{description}}</p>
+        </div>
+        <ng-template #photo>
+            <div class="photo-container">
+                <ion-img [src]="image" class="photo"></ion-img>
+            </div>
+        </ng-template>
+    </ion-card-content>
 </ion-card>
