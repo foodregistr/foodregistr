@@ -1,32 +1,43 @@
-.food-type {
+.food-type-container{
     width: 10em;
     height: 3em;
     margin: auto;
 } 
 
+.food-type-content{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+
 .food-photo {
     width: 10em;
     height: 10em;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.2em;
 }
 
-.food-photo ion-card-content {
+.food-photo {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .photo-frame {
+
     border: 5px dashed lightgray;
 }
 
 .photo-container {
-    width: 10em;
-    height: 10em;
+    width: 8em;
+    height: 8em;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 .photo {
@@ -45,11 +56,6 @@
 
 .photo-p {
     color: rgb(167, 167, 167);
-}
-
-.photo-card-content{
-    height: 8.9em;
-    width: 17em;
 }
 
 ion-icon {

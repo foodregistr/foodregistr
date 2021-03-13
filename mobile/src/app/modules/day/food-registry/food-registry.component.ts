@@ -86,7 +86,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
 
   public submit(): void {
     const foodRegistry: FoodRegistry = {
-      description: this.description || '',
+      description: this.description,
       date: this.date,
       foodType: this.utilsService.decapitalize(this.foodType),
       imageId: this.foodRegistry.imageId || '',

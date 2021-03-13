@@ -20,7 +20,7 @@ export class FoodViewComponent implements OnInit{
     constructor(private utilsService: UtilsService, private dayService: DayService){}
 
     ngOnInit(){
-        this.description = this.food.description || null
+        this.description = this.food.description
         this.foodType = this.utilsService.capitalize(this.food.foodType)
         if(this.food.imageId){
             this.dayService.getImage(this.food.imageId).then(url => {
@@ -31,7 +31,11 @@ export class FoodViewComponent implements OnInit{
     }
 
     public content() : boolean{
-        return !this.image && !this.description
+        return this.image != undefined && this.description != undefined
+    }
+
+    public getDescription(): boolean{
+        return this.image == undefined && this.description != undefined
     }
 
     public async navToFoodRegistry(){

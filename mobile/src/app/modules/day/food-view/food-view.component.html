@@ -1,21 +1,24 @@
-<ion-card class='food-type'>
-    <ion-card-content>
-      <h1>{{ foodType }}</h1>
+<ion-card class="food-type-container">
+    <ion-card-content class="food-type-content">
+        <h1>{{ foodType }}</h1>
     </ion-card-content>
 </ion-card>
 
+
 <ion-card class="food-photo" (click)="navToFoodRegistry()">
     <ion-card-content class="photo-card-content">
-        <div class="photo-container photo-frame"  *ngIf="!image && !description; else photo">
-            <ion-icon name="add-circle-outline" class='circle-icon'></ion-icon>
+        <div class="photo-container" *ngIf="image; else descr">
+            <ion-img [src]="image" class="photo"></ion-img>
         </div>
-        <div class="photo-container" *ngIf="!image && description">
-            <p class="ion-text-center photo-p">{{description}}</p>
-        </div>
-        <ng-template #photo>
-            <div class="photo-container">
-                <ion-img [src]="image" class="photo"></ion-img>
+        <ng-template #descr>
+            <div class="photo-container" *ngIf="description && image == undefined; else addFood">
+                <p class="ion-text-center photo-p">{{description}}</p>
             </div>
+            <ng-template #addFood>
+                <div class="photo-container photo-frame">
+                    <ion-icon name="add-circle-outline" class='circle-icon'></ion-icon>
+                </div>
+            </ng-template>
         </ng-template>
     </ion-card-content>
 </ion-card>
