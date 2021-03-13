@@ -27,6 +27,8 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
 
   @Input()
   public foodRegistry: FoodRegistry
+  public hasNextDay : boolean;
+
 
   constructor(
     private dayService: DayService,
@@ -41,6 +43,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   
   ngOnInit(): void {
     this.date = this.route.snapshot.paramMap.get("date") || this.utilsService.formatDate(new Date())
+    this.hasNextDay = this.utilsService.formatDate(new Date()) > this.date
     this.foodType = this.utilsService.capitalize(this.foodRegistry.foodType)
     this.description = this.foodRegistry.description || ''
     if(this.foodRegistry.imageId){
@@ -49,6 +52,17 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
         this.image = url
       }).catch(err => console.log(err))
     }
+  }
+
+  public navigateToNextDay(): void {
+    const nextDay = this.utilsService.getNextDay(this.date)
+    this.dayService.navigateToDayRegistry(nextDay, 0)
+  }
+
+  public navigateToPrevDay(): void {
+    const prevDay = this.utilsService.getPrevDay(this.date)
+    this.dayService.navigateToDayRegistry(prevDay, 0)
+
   }
 
   public getImage() : string{
