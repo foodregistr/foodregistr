@@ -2,6 +2,7 @@
     width: 10em;
     height: 3em;
     margin: auto;
+    border-radius: 25px;
 } 
 
 .food-type-content{
@@ -14,8 +15,8 @@
 
 
 .food-photo {
-    width: 10em;
-    height: 10em;
+    width: 9em;
+    height: 8em;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1.2em;
@@ -33,8 +34,8 @@
 }
 
 .photo-container {
-    width: 8em;
-    height: 8em;
+    width: 7em;
+    height: 6em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,10 +56,14 @@
 }
 
 .photo-p {
-    color: rgb(167, 167, 167);
+    color: black;
 }
 
 ion-icon {
     font-size: 2.5em;
+    color: lightgray;
+}
+
+h1{
     color: black;
 }
