@@ -11,7 +11,7 @@
             <ion-img [src]="image" class="photo"></ion-img>
         </div>
         <ng-template #descr>
-            <div class="photo-container" *ngIf="description && image == undefined; else addFood">
+            <div class="photo-container photo-description" *ngIf="description && image == undefined; else addFood">
                 <p class="ion-text-center photo-p">{{description}}</p>
             </div>
             <ng-template #addFood>

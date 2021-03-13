@@ -1,5 +1,5 @@
 .food-type-container{
-    width: 10em;
+    width: 11em;
     height: 3em;
     margin: auto;
     border-radius: 25px;
@@ -15,8 +15,8 @@
 
 
 .food-photo {
-    width: 9em;
-    height: 8em;
+    width: 10em;
+    height: 10em;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1.2em;
@@ -34,8 +34,8 @@
 }
 
 .photo-container {
-    width: 7em;
-    height: 6em;
+    width: 8em;
+    height: 8em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,8 +55,14 @@
     color: lightgray;
 }
 
+.photo-description{
+    max-height: 100%;
+}
+
 .photo-p {
     color: black;
+    width: 100%;
+    line-height: 13px;
 }
 
 ion-icon {
