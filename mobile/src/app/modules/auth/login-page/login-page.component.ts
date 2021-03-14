@@ -1,4 +1,4 @@
- import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -11,7 +11,6 @@ export class LoginPageComponent {
   invalidFields = false
   password  = "";
   email  = "";
-
 
   constructor(
     private authService : AuthService, 
@@ -29,7 +28,7 @@ export class LoginPageComponent {
   async onSubmit(): Promise<void> {
     try {
       await this.authService.login(this.password, this.email)
-      this.router.navigate(["../../day"])
+      this.router.navigate(["tabs/day/register"])
     } catch (err) {
       this.invalidFields = true
     }
