@@ -7,11 +7,11 @@
 
 <ion-card class="food-photo" (click)="navToFoodRegistry()">
     <ion-card-content class="photo-card-content">
-        <div class="photo-container" *ngIf="image; else descr">
+        <div class="photo-container " *ngIf="getImage(); else descr">
             <ion-img [src]="image" class="photo"></ion-img>
         </div>
         <ng-template #descr>
-            <div class="photo-container photo-description" *ngIf="description && image == undefined; else addFood">
+            <div class="photo-container photo-description" *ngIf="getDescription(); else addFood">
                 <p class="ion-text-center photo-p">{{description}}</p>
             </div>
             <ng-template #addFood>

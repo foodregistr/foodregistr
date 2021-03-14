@@ -16,12 +16,13 @@ export const dayRoutes: Routes = [
     component: DayPageComponent
   },
   {
-    path:      ':date',
-    component: DayViewPageComponent
+    path:      'register',
+    component: DayPageComponent,
+    pathMatch: 'exact'
   },
   {
-    path:      'register',
-    component: DayPageComponent
+    path:      ':date',
+    component: DayViewPageComponent
   },
   {
     path:      '',

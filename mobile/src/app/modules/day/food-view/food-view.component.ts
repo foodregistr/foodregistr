@@ -20,22 +20,24 @@ export class FoodViewComponent implements OnInit{
     constructor(private utilsService: UtilsService, private dayService: DayService){}
 
     ngOnInit(){
-        this.description = this.food.description
+        this.description = this.food.description || ""
         this.foodType = this.utilsService.capitalize(this.food.foodType)
         if(this.food.imageId){
             this.dayService.getImage(this.food.imageId).then(url => {
                 this.utilsService.downloadImage(url)
                 this.image = url
             }).catch(err => console.log(err))
+        } else {
+            this.image = ""
         }
     }
 
-    public content() : boolean{
-        return this.image != undefined && this.description != undefined
+    public getImage() : boolean{
+        return this.food.imageId !== "" && this.image != ""
     }
 
     public getDescription(): boolean{
-        return this.image == undefined && this.description != undefined
+        return this.description != ""
     }
 
     public async navToFoodRegistry(){

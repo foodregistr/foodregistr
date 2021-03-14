@@ -43,8 +43,8 @@
 
 .photo {
     object-fit: cover;
-    max-width: 5em;
-    max-height: 5em;
+    max-width: 9em;
+    max-height: 9em;
     transform: scale(0.9, 0.9);
 }
 
@@ -60,7 +60,7 @@
 }
 
 .photo-p {
-    color: black;
+    color: gray;
     width: 100%;
     line-height: 13px;
 }
