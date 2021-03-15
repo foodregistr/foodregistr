@@ -5,6 +5,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { UiModule } from "../ui/ui.module";
 import { MonthPageComponent } from "./month-page/month-page.component";
+import { MonthService } from "./month.service";
 
 export const monthRoutes: Routes = [
     {
@@ -19,5 +20,6 @@ export const monthRoutes: Routes = [
 @NgModule({
     declarations: [MonthPageComponent],
     exports: [MonthPageComponent],
-    imports: [RouterModule.forChild(monthRoutes), CommonModule, ReactiveFormsModule, IonicModule, UiModule]
+    imports: [RouterModule.forChild(monthRoutes), CommonModule, ReactiveFormsModule, IonicModule, UiModule],
+    providers: [MonthService]
 }) export class MonthModule{}
