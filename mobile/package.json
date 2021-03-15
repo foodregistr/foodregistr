@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "android": "yarn build && yarn cap copy android",
-    "android:resources": "cordova-res ios && cordova-res android && node scripts/resources.js"
+    "android:resources": "cordova-res android && node scripts/resources.js"
   },
   "private": true,
   "dependencies": {
