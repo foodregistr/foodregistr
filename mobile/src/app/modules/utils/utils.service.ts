@@ -63,4 +63,14 @@ export class UtilsService {
     return this.formatDate(date).slice(0,7)
   }
 
+  public getMonthDays(dateString: string) : number[]{
+    let date = new Date(dateString.split("-")[0] as unknown as number, dateString.split("-")[1] as unknown as number - 1, 1)
+    const days = []
+    while(date.getMonth() == dateString.split("-")[1] as unknown as number - 1){
+      days.push(date.getDate())
+      date.setDate(date.getDate() + 1)
+    }
+    return days;
+  }
+
 }

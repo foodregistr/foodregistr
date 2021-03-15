@@ -13,4 +13,13 @@
             (click)="navigateToNextMonth()"
         ></ion-icon>
     </div>
+
+    <div class="month-day-container">
+        <ng-container *ngFor="let day of monthDays">
+            <month-day
+                [date]="date"
+                [day]= "day"
+            ></month-day>
+        </ng-container>
+    </div>
 </ion-content>

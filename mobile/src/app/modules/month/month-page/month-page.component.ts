@@ -11,18 +11,18 @@ import { MonthService } from "../month.service";
 })
 export class MonthPageComponent implements OnInit{
     
-    public date: string
-
+    public date: string;
+    public monthDays : number[];
     public hasNextMonth: boolean;
     
     constructor(private route: ActivatedRoute, private utilsService : UtilsService, private monthService: MonthService){}
     ngOnInit(){
         this.date = this.route.snapshot.paramMap.get('date') || this.utilsService.formatDate(new Date()).slice(0, 7)
         this.hasNextMonth = this.date.split("-")[1] as unknown as number < new Date().getMonth() + 1 || this.date.split("-")[0] as unknown as number < new Date().getFullYear()
+        this.monthDays = this.utilsService.getMonthDays(this.date)
     }
 
     public navigateToNextMonth(): void {
-    
         const nextMonth = this.utilsService.getNextMonth(this.date)
         this.monthService.navigateToMonth(nextMonth)
     }
