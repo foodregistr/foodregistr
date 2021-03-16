@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { MonthService } from "../month.service";
 
 @Component({
     selector: 'month-day',
@@ -10,9 +11,15 @@ export class MonthDayComponent implements OnInit{
     @Input() day : number;
     @Input() date: string;
 
-    public activated : boolean;
+    public deactivated : boolean;
+
+    constructor(private monthService: MonthService){}
 
     ngOnInit(){
-        
+        this.deactivated = this.day > new Date().getDate() && this.date.split("-")[1] as unknown as number >= new Date().getMonth() + 1 
+    }
+
+    navigateToDay(): void{
+        this.monthService.navigateToDay(this.day, this.date)
     }
 }

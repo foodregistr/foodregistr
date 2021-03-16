@@ -26,7 +26,6 @@ export class UtilsService {
 
   public stringToDate(dateString: string): Date{
     const splitedString = dateString.split("-")
-    console.log(splitedString)
     return new Date(splitedString[0] as unknown as number, splitedString[1] as unknown as number - 1, splitedString[2] as unknown as number || 1)
   }
 
@@ -57,7 +56,6 @@ export class UtilsService {
   }
 
   public getPrevMonth(dateString: string) : string{
-    console.log(dateString)
     const date = this.stringToDate(dateString)
     date.setMonth(date.getMonth() - 1)
     return this.formatDate(date).slice(0,7)
