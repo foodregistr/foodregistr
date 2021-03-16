@@ -13,7 +13,13 @@ export class MonthService {
     }
 
     public navigateToDay(day: number, datestring: string){
-        const date = datestring + "-" + day as string
+        let date = datestring + "-" 
+        if(day < 10){
+            date = date + "0" + day as string
+        } else {
+            date = date + day as string
+        }
+        
         this.router.navigate(['tabs/day', date])
     }
 }
