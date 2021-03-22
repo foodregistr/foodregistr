@@ -29,25 +29,28 @@ export class DrawerComponent {
 
   async about(): Promise<void> {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
+      cssClass: 'about-alert',
       header: 'About',
       subHeader: 'version 1.0',
       message: 'Hi!',
       buttons: [
         {
           text: '@leodelgadodev',
+          cssClass: 'about-button',
           handler: () => {
             window.open("https://github.com/leodelgadodev",'_system')
           }
         },
         {
           text: '@mendezigna',
+          cssClass: 'about-button',
           handler: () => {
             window.open("https://github.com/mendezigna", '_system')
           }
         },
         {
           text: '@AntonellaDatri',
+          cssClass: 'about-button',
           handler: () => {
             window.open("https://github.com/AntonellaDatri", '_system')
           }
