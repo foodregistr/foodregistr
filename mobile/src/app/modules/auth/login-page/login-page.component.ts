@@ -1,6 +1,5 @@
- import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '../../utils/store.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -13,9 +12,10 @@ export class LoginPageComponent {
   password  = "";
   email  = "";
 
-
-  constructor(private authService : AuthService, 
-    private router : Router, private store: Store) {}
+  constructor(
+    private authService : AuthService, 
+    private router : Router
+  ) {}
 
   setPassword(event: any): void {
     this.password = event.target.value
@@ -27,12 +27,10 @@ export class LoginPageComponent {
 
   async onSubmit(): Promise<void> {
     try {
-      const {token, username, uid} = await this.authService.login(this.password, this.email)
-      await this.store.setUserInfo(username, uid, token)
-      this.router.navigate(["../../day"])
+      await this.authService.login(this.password, this.email)
+      this.router.navigate(["tabs/day/register"])
     } catch (err) {
       this.invalidFields = true
     }
   }
 }
- 
