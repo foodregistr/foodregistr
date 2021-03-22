@@ -5,19 +5,24 @@ import { RouterModule, Routes } from "@angular/router";
 import { UiModule } from "../ui/ui.module";
 import { AuthService } from "./auth.service";
 import { LoginPageComponent } from "./login-page/login-page.component";
+import { SignupPageComponent } from "./signup-page/signup-page.component";
 
-export const loginRoutes: Routes = [
+export const authRoutes: Routes = [
   {
-    path:      '',
+    path:      'login',
     component: LoginPageComponent
+  },
+  {
+    path:      'signup',
+    component: SignupPageComponent
   }
 ];
 
 @NgModule({
-    declarations: [LoginPageComponent],
+    declarations: [LoginPageComponent, SignupPageComponent],
     entryComponents: [],
-    exports: [LoginPageComponent],
-    imports: [RouterModule.forChild(loginRoutes), UiModule, HttpClientModule, CommonModule],
+    exports: [LoginPageComponent, SignupPageComponent],
+    imports: [RouterModule.forChild(authRoutes), UiModule, HttpClientModule, CommonModule],
     providers: [AuthService]
   })
-  export class LoginModule {}
+  export class AuthModule {}
