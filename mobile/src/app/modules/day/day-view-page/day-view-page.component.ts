@@ -1,6 +1,6 @@
-import { Component, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router';
-import { ViewDidEnter, ViewWillEnter } from '@ionic/angular';
+import { ViewWillEnter } from '@ionic/angular';
 import { UtilsService } from '../../utils/utils.service';
 import { DayService } from '../day.service';
 import { FoodRegistry } from '../food-registry/FoodRegistry';
@@ -27,17 +27,15 @@ export class DayViewPageComponent implements OnInit, ViewWillEnter {
     this.dayService.getFoodRegistriesFromDay(this.dayDate).then( (data: any) => {
       this.foodRegistries = this.dayService.mapPreviousRegistries(data)
     })
-
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.foodTypes = this.dayService.getFoodTypes()
     this.dayDate = this.route.snapshot.paramMap.get("date") || this.utilsService.formatDate(new Date())
   }
 
 
   public navigateToNextDay(): void {
-    
     const nextDay = this.utilsService.getNextDay(this.dayDate)
     this.dayService.navigateToDayView(nextDay)
   }
