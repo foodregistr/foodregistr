@@ -21,8 +21,8 @@ export class ChangePasswordPageComponent implements OnInit{
     ngOnInit() :void{
         this.changePasswordForm = this.formBuilder.group({
             password: new FormControl('', [Validators.required]),
-            repeatPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-            newPassword: new FormControl('', [Validators.required]),
+            repeatPassword: new FormControl('', [Validators.required]),
+            newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
         }, {
             validators: this.mustMatch
         });
@@ -35,6 +35,7 @@ export class ChangePasswordPageComponent implements OnInit{
     get newPassword() { return this.changePasswordForm.get('newPassword'); }
 
     onSubmit(){
+        console.log(this.changePasswordForm.get('newPassword').hasError('minlength'))
         if(!this.changePasswordForm.invalid){
             this.authService.updatePassword(this.changePasswordForm.get('password').value, this.changePasswordForm.get('newPassword').value).then(res => {
                 this.successMsg()
@@ -65,7 +66,9 @@ export class ChangePasswordPageComponent implements OnInit{
         if (newpassword.value !== repeatPassword.value) {
             repeatPassword.setErrors({mustMatch: true})
             return {invalid: true};
-        } 
+        } else {
+            repeatPassword.setErrors(null)
+        }
         
     }
 
