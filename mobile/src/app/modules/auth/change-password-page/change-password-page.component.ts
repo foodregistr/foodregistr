@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ToastController } from "@ionic/angular";
 import { AuthService } from "../auth.service";
 
 @Component({
@@ -12,7 +14,7 @@ export class ChangePasswordPageComponent implements OnInit{
     public invalidPassword: boolean
     private changePasswordForm : FormGroup;
 
-    constructor( private formBuilder: FormBuilder, private authService: AuthService) {
+    constructor( private router: Router,private formBuilder: FormBuilder, private authService: AuthService, private toast: ToastController) {
       
     }
 
@@ -35,19 +37,27 @@ export class ChangePasswordPageComponent implements OnInit{
     onSubmit(){
         if(!this.changePasswordForm.invalid){
             this.authService.updatePassword(this.changePasswordForm.get('password').value, this.changePasswordForm.get('newPassword').value).then(res => {
-                console.log("password changed successfuly")
+                this.successMsg()
             }).catch(err => {
-                console.log(err)
-                console.log("contraseña caca")
                 this.invalidPassword = true
                 return;
             })
         }else {
-            console.log("algo no funca")
             return;
         }
     }
+    cancel(){
+        this.router.navigate(['tabs/day'])
+    }
 
+    private async successMsg() {
+        const msg = await this.toast.create({
+            message: 'Password changed successfully!',
+            duration: 1500,
+            color: 'dark'
+        });
+        msg.present();
+    }
     mustMatch(c: AbstractControl) : {invalid: boolean}{
         const newpassword = c.get('newPassword')
         const repeatPassword = c.get('repeatPassword') 
