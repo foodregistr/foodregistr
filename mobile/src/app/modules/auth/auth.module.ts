@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuard } from "src/app/guards/auth.guard";
 import { UiModule } from "../ui/ui.module";
@@ -29,7 +30,7 @@ export const authRoutes: Routes = [
     declarations: [LoginPageComponent, SignupPageComponent, ChangePasswordPageComponent],
     entryComponents: [],
     exports: [LoginPageComponent, SignupPageComponent, ChangePasswordPageComponent],
-    imports: [RouterModule.forChild(authRoutes), UiModule, HttpClientModule, CommonModule],
+    imports: [RouterModule.forChild(authRoutes), UiModule, HttpClientModule, CommonModule, FormsModule, ReactiveFormsModule],
     providers: [AuthService]
   })
   export class AuthModule {}

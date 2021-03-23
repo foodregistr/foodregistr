@@ -24,7 +24,7 @@ export class DrawerComponent {
   }
 
   changePassword(): void {
-    console.log("Change password")
+    this.router.navigate(['auth/change-password'])
   }
 
   async about(): Promise<void> {
