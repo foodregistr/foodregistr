@@ -1,3 +1,16 @@
 <ion-content>
-    
+    <div class="date-container">
+        <ion-icon 
+            name="chevron-back-circle-outline" 
+            class="change-day-btn"
+            (click)="navigateToPrevWeek()"
+        ></ion-icon>
+        <div class="date">{{startOfWeek}}<br>-<br>{{endOfWeek}}</div>
+        <ion-icon 
+            *ngIf="hasNextWeek"
+            name="chevron-forward-circle-outline" 
+            class="change-day-btn"
+            (click)="navigateToNextWeek()"
+        ></ion-icon>
+    </div>
 </ion-content>
