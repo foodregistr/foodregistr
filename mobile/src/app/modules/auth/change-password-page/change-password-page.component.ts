@@ -35,7 +35,6 @@ export class ChangePasswordPageComponent implements OnInit{
     get newPassword() { return this.changePasswordForm.get('newPassword'); }
 
     onSubmit(){
-        console.log(this.changePasswordForm.get('newPassword').hasError('minlength'))
         if(!this.changePasswordForm.invalid){
             this.authService.updatePassword(this.changePasswordForm.get('password').value, this.changePasswordForm.get('newPassword').value).then(res => {
                 this.successMsg()

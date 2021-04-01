@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { AbstractControl } from "@angular/forms";
+import firebase from 'firebase/app'
 import { Store } from "../utils/store.service";
 
 @Injectable()
@@ -63,8 +63,12 @@ export class AuthService {
     }
 
     public updatePassword(oldPassword: string, newPassword: string): Promise<any>{
-        return this.fireAuth.signInWithEmailAndPassword(this.store.get('email'), oldPassword).then( res => {
-            return res.user.updatePassword(newPassword)
+        return this.fireAuth.currentUser.then(user => {
+            const credentials = firebase.auth.EmailAuthProvider.credential(this.store.get('email'), oldPassword)
+            return user.reauthenticateWithCredential(credentials).then(res => {
+                return res.user.updatePassword(newPassword)
+            })
+
         })
     }
 
