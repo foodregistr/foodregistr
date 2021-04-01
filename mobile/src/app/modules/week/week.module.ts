@@ -3,6 +3,7 @@ import { Component, NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { UiModule } from "../ui/ui.module";
+import { WeekDayComponent } from "./week-day/week-day.component";
 import { WeekPageComponent } from "./week-page/week-page.component";
 import { WeekService } from "./week.service";
 
@@ -18,7 +19,7 @@ export const weekRoutes : Routes = [
 ]
 
 @NgModule({
-    declarations: [WeekPageComponent],
+    declarations: [WeekPageComponent, WeekDayComponent],
     exports: [WeekPageComponent],
     imports: [RouterModule.forChild(weekRoutes), CommonModule, IonicModule, UiModule],
     providers: [WeekService]

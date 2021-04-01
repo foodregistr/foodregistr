@@ -12,7 +12,7 @@ import { WeekService } from "../week.service";
     public startOfWeek : string;
     public endOfWeek: string;
     public hasNextWeek: boolean;
-
+    public weekDays = [1,2,3,4,5,6,7]
     constructor(private route : ActivatedRoute, private utilsService: UtilsService, private weekService: WeekService){}
 
     ngOnInit(){

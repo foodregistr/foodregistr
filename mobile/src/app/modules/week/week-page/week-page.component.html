@@ -13,4 +13,12 @@
             (click)="navigateToNextWeek()"
         ></ion-icon>
     </div>
+    <div class="week-days-container">
+        <ng-container *ngFor="let day of weekDays">
+            <week-day
+                [firstDayOfWeek]="startOfWeek"
+                [day]= "day"
+            ></week-day>
+        </ng-container>
+    </div>
 </ion-content>

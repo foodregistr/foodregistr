@@ -11,4 +11,8 @@ export class WeekService {
     navigateToWeek(startDay :string, endDay: string){
         this.router.navigate(["tabs/week", startDay, endDay])
     }
+
+    navigateToDay(date){
+        this.router.navigate(["tabs/day", date])
+    }
 }
