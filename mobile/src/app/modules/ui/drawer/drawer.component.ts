@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../../auth/auth.service';
 import { Store } from '../../utils/store.service';
 
 @Component({
@@ -14,12 +15,13 @@ export class DrawerComponent {
   constructor(
     private router : Router,
     private store: Store,
-    private alertController: AlertController) { 
+    private alertController: AlertController,
+    private authService: AuthService) { 
     this.username = this.store.get('username')
   }
 
   logOut(): void {
-    this.store.revokeSession()
+    this.authService.deauthenticate()
     this.router.navigate(['/auth/login'])
   }
 
