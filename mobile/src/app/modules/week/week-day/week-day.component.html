@@ -1,5 +1,11 @@
-<ion-button (click)="navigateToDay()" [disabled]="hasNextDay()">
+<ion-button (click)="navigateToDay()" [disabled]="hasNextDay()" class="week-day">
     <div class="day-container">
         {{day}}
+    </div>
+    <div class="foods-container">
+        <div class="food">Breakfast</div>
+        <div class="food">Lunch</div>
+        <div class="food">Snack</div>
+        <div class="food">Dinner</div>
     </div>
 </ion-button>
