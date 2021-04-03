@@ -10,14 +10,21 @@ import { WeekService } from "../week.service";
     
     @Input() day: number;
     @Input() firstDayOfWeek: string;
+    @Input() foods: string[] = [];
     public date: Date;
+    public contains = [];
+    public foodTypes = ["Breakfast", "Lunch", "Snack", "Dinner"]
     
     constructor(private weekService: WeekService, private utilsService: UtilsService){}
 
     ngOnInit(){
+        
         const temp = this.utilsService.stringToDate(this.firstDayOfWeek)
-        temp.setDate(temp.getDate() + this.day - 1)
+        temp.setDate(temp.getDate() + this.day)
         this.date = temp
+        this.day = this.day + 1
+        this.contains = [this.foods.includes("breakfast"), this.foods.includes("lunch"), this.foods.includes("snack"), this.foods.includes("dinner")]
+
     }
 
     navigateToDay(){
@@ -27,4 +34,5 @@ import { WeekService } from "../week.service";
     hasNextDay(): boolean{
         return this.date > new Date()
     }
+
 }

@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content style="--background: #f5f5f5;">
     <div class="date-container">
         <ion-icon 
             name="chevron-back-circle-outline" 
@@ -14,10 +14,11 @@
         ></ion-icon>
     </div>
     <div class="week-days-container">
-        <ng-container *ngFor="let day of weekDays">
+        <ng-container *ngFor="let foods of foodsOfWeek; let i = index">
             <week-day
                 [firstDayOfWeek]="startOfWeek"
-                [day]= "day"
+                [day]= "i"
+                [foods]= "foods"
             ></week-day>
         </ng-container>
     </div>
