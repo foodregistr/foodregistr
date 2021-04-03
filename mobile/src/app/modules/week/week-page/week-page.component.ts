@@ -13,7 +13,6 @@ import { WeekService } from "../week.service";
     public startOfWeek : string;
     public endOfWeek: string;
     public hasNextWeek: boolean;
-    public days = [1, 2, 3, 4, 5, 6, 7]
     public foodsOfWeek= [];
     constructor(private route : ActivatedRoute, private utilsService: UtilsService, private weekService: WeekService){}
 
@@ -21,7 +20,10 @@ import { WeekService } from "../week.service";
         this.startOfWeek = this.route.snapshot.paramMap.get("startOfWeek") || this.utilsService.formatDate(this.utilsService.getFirstDayOfWeek(new Date()))
         this.endOfWeek = this.route.snapshot.paramMap.get("endOfWeek") || this.utilsService.formatDate(this.utilsService.getLastDayOfWeek(new Date()))
         this.hasNextWeek = this.utilsService.stringToDate(this.endOfWeek) < new Date()
-        this.foodsOfWeek = this.weekService.getFoods(this.startOfWeek, this.endOfWeek)
+        this.weekService.getFoods(this.startOfWeek, this.endOfWeek).then(foods => {
+            this.foodsOfWeek = foods
+            
+        })
     }
 
     ngOnInit(){
