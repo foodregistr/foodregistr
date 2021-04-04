@@ -25,6 +25,7 @@ export class WeekService {
     getFoods(start: string, end: string): Promise<string[]>{
         const uid = this.storeService.get('uid')
         const days = this.getDaysOfWeek(start, end)
+        
         return this.fireDAO.collection(uid).ref.where("date", ">=", start).where("date", "<=", end).get().then(snapshot => {
             const foods = []
             snapshot.forEach( doc => {

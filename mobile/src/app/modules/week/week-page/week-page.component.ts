@@ -17,9 +17,11 @@ import { WeekService } from "../week.service";
     constructor(private route : ActivatedRoute, private utilsService: UtilsService, private weekService: WeekService){}
 
     ionViewWillEnter(){
-        this.startOfWeek = this.route.snapshot.paramMap.get("startOfWeek") || this.utilsService.formatDate(this.utilsService.getFirstDayOfWeek(new Date()))
-        this.endOfWeek = this.route.snapshot.paramMap.get("endOfWeek") || this.utilsService.formatDate(this.utilsService.getLastDayOfWeek(new Date()))
-        this.hasNextWeek = this.utilsService.stringToDate(this.endOfWeek) < new Date()
+        const newDate = new Date()
+        newDate.setHours(0,0,0,0)
+        this.startOfWeek = this.route.snapshot.paramMap.get("startOfWeek") || this.utilsService.formatDate(this.utilsService.getFirstDayOfWeek(newDate))
+        this.endOfWeek = this.route.snapshot.paramMap.get("endOfWeek") || this.utilsService.formatDate(this.utilsService.getLastDayOfWeek(newDate))
+        this.hasNextWeek = this.utilsService.stringToDate(this.endOfWeek) < newDate
         this.weekService.getFoods(this.startOfWeek, this.endOfWeek).then(foods => {
             this.foodsOfWeek = foods
             
