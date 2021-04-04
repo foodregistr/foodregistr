@@ -11,7 +11,6 @@ import { AuthService } from "../auth.service";
 })
 export class ChangePasswordPageComponent implements OnInit{
 
-    public invalidPassword: boolean
     private changePasswordForm : FormGroup;
 
     constructor( private router: Router,private formBuilder: FormBuilder, private authService: AuthService, private toast: ToastController) {
@@ -38,8 +37,9 @@ export class ChangePasswordPageComponent implements OnInit{
         if(!this.changePasswordForm.invalid){
             this.authService.updatePassword(this.changePasswordForm.get('password').value, this.changePasswordForm.get('newPassword').value).then(res => {
                 this.successMsg()
+                this.changePasswordForm.get('password').setErrors(null)
             }).catch(err => {
-                this.invalidPassword = true
+                this.changePasswordForm.get('password').setErrors({invalidPassword: true})
                 return;
             })
         }else {
