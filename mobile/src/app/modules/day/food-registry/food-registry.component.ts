@@ -100,7 +100,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
   }
 
   public rotatePhoto(){
-
+    console.log("WIP")
   }
 
   public submit(): void {
