@@ -22,7 +22,7 @@ export class ChangePasswordPageComponent implements OnInit{
         this.changePasswordForm = this.formBuilder.group({
             password: new FormControl('', [Validators.required]),
             repeatPassword: new FormControl('', [Validators.required]),
-            newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+            newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
         }, {
             validators: this.mustMatch
         });
