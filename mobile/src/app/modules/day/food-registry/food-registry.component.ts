@@ -75,6 +75,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
 
   public toggleUploadPhoto(): void {
       this.takePhoto().then( res => {
+        console.log(res)
         this.imageBlobUrl = res.webPath
       }).catch( err => console.log(err));
   }
@@ -96,6 +97,10 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
     // You can access the original file using image.path, which can be
     // passed to the Filesystem API to read the raw data of the image,
     // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+  }
+
+  public rotatePhoto(){
+
   }
 
   public submit(): void {

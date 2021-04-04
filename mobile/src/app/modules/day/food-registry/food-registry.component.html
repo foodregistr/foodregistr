@@ -19,9 +19,9 @@
   ></ion-icon>
 </div>
 
-<ion-card class='food-photo' (click)='toggleUploadPhoto()'>
+<ion-card class='food-photo' >
   <ion-card-content>
-    <div class="photo-container photo-frame"  *ngIf="!image && !imageBlobUrl; else photo">
+    <div class="photo-container photo-frame" (click)='toggleUploadPhoto()' *ngIf="!image && !imageBlobUrl; else photo">
       <ion-icon name="camera-outline" class='photo-icon'></ion-icon>
       <p class="ion-text-center photo-p">Click here to upload your <br>{{ foodType }}</p>
     </div>
@@ -30,8 +30,10 @@
         <div class="badge-photo-remove">
           <ion-icon name="close-circle-outline" class="badge-photo-remove-icon" (click)='removePhoto()'></ion-icon>
         </div>
-      <ion-img [src]="getImage()" class="photo">
-      </ion-img>
+        <ion-img [src]="getImage()" class="photo" (click)='toggleUploadPhoto()'></ion-img>
+        <div class="badge-photo-rotate">
+          <ion-icon name="reload-circle-outline" class="badge-photo-rotate-icon" (click)="rotatePhoto()"></ion-icon>
+        </div>
       </div>
     </ng-template>
   </ion-card-content>
