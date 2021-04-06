@@ -47,8 +47,7 @@ export class SignupPageComponent {
     if (this.allFieldsAreOK()) { 
       try {
         await this.authService.signup(this.password, this.email, this.name)
-        await this.authService.login(this.password, this.email)
-        this.router.navigate(["tabs/day/register"]) 
+        this.router.navigate(["auth/login"]) 
       } catch(err) {
         switch(err.message){
           case "Error: The email address is badly formatted.":

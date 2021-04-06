@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import firebase from 'firebase/app'
+import { throwError } from "rxjs";
 import { Store } from "../utils/store.service";
 
 @Injectable()
@@ -21,11 +22,15 @@ export class AuthService {
         }
 
     public signup(password: string, email: string, name : string) : Promise<string> {
-        return this.fireAuth.createUserWithEmailAndPassword(email, password)
-        .then((res) => {
+        return this.fireAuth.createUserWithEmailAndPassword(email, password).then((res) => {
             res.user.updateProfile({displayName : name})
+            
+            res.user.sendEmailVerification().then(r => {
+            })
+            
             this.createUser(res.user.toJSON(), name)
             return (res.user.toJSON() as any).stsTokenManager.accessToken
+            
         })
         .catch((err) => {
             throw new Error(err)
@@ -34,7 +39,12 @@ export class AuthService {
 
     public login(password: string, email: string) : any {
         return this.fireAuth.signInWithEmailAndPassword(email, password)
-        .then(async(res) => this.saveUserDataLocally(res))
+        .then(async(res) => {
+            if(!res.user.emailVerified){
+                throw new Error("Please verify your email address.")
+            }
+            this.saveUserDataLocally(res)
+        })
         .catch((err) => {
             throw new Error(err)
         })
