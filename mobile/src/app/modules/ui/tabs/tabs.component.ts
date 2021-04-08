@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { UtilsService } from '../../utils/utils.service';
@@ -8,13 +8,18 @@ import { UtilsService } from '../../utils/utils.service';
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
 })
-export class TabsComponent {
+export class TabsComponent implements OnInit {
 
   constructor(
     private menu: MenuController,
     private router: Router,
     private utilsService: UtilsService
     ) {}
+  
+  ngOnInit(): void{
+    this.router.navigate(["tabs/day/register"])
+  }
+
 
   public goToToday() {
     const date = this.utilsService.formatDate(new Date())
