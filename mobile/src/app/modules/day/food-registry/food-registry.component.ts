@@ -18,7 +18,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
 
   public image: string
 
-  public totalCaracteres: number;
+  public totalCharacters: number;
 
   @ViewChild('description') textArea: IonTextarea;
 
@@ -48,7 +48,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
     this.hasNextDay = this.utilsService.formatDate(new Date()) > this.date
     this.foodType = this.utilsService.capitalize(this.foodRegistry.foodType)
     this.description = this.foodRegistry.description || ''
-    this.totalCaracteres = this.description.length
+    this.totalCharacters = this.description.length
 
     if(this.foodRegistry.imageId){
       this.dayService.getImage(this.foodRegistry.imageId).then(url => {
@@ -75,7 +75,7 @@ export class FoodRegistryComponent implements OnInit, AfterViewInit {
 
   public setDescription(event : any): void {
     this.description = event.target.value
-    this.totalCaracteres = this.description.length
+    this.totalCharacters = this.description.length
   }
 
   public toggleUploadPhoto(): void {
