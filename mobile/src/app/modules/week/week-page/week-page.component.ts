@@ -8,7 +8,7 @@ import { WeekService } from "../week.service";
     selector: "app-week-page",
     templateUrl: "./week-page.component.html",
     styleUrls: ["./week-page.component.scss"]
-}) export class WeekPageComponent implements OnInit, ViewWillEnter {
+}) export class WeekPageComponent implements ViewWillEnter {
     
     public startOfWeek : string;
     public endOfWeek: string;
@@ -26,10 +26,6 @@ import { WeekService } from "../week.service";
             this.foodsOfWeek = foods
             
         })
-    }
-
-    ngOnInit(){
-        
     }
 
     navigateToPrevWeek(){

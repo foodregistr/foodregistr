@@ -4,9 +4,9 @@
     </div>
     <div class="foods-container">
         <div class="food" *ngFor="let foodtype of foodTypes; let i = index">
-            <ion-button class="food-content" fill="clear" [disabled]="!contains[i]"> 
-                <ion-icon src="/assets/icon/registered.svg" size="small" slot="start" *ngIf="contains[i]"></ion-icon>
-                <ion-icon src="/assets/icon/unregistered.svg" size="small" slot="start" *ngIf="!contains[i]"></ion-icon>
+            <ion-button class="food-content" fill="clear" [disabled]="!isRegistered(foodtype)"> 
+                <ion-icon src="/assets/icon/registered.svg" size="small" slot="start" *ngIf="isRegistered(foodtype)"></ion-icon>
+                <ion-icon src="/assets/icon/unregistered.svg" size="small" slot="start" *ngIf="!isRegistered(foodtype)"></ion-icon>
                 {{foodtype}}
             </ion-button>
         </div>
