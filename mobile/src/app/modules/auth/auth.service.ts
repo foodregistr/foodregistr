@@ -32,7 +32,7 @@ export class AuthService {
               buttons: [
                 {
                   side: 'end',
-                  text: 'Go Back',
+                  text: 'Ok!',
                   handler: () => {
                     this.router.navigate(['auth/login'])
                   }
