@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { Router } from "@angular/router";
+import { ToastController } from "@ionic/angular";
 import firebase from 'firebase/app'
-import { throwError } from "rxjs";
 import { Store } from "../utils/store.service";
 
 @Injectable()
@@ -11,7 +12,9 @@ export class AuthService {
     constructor(
         private fireAuth: AngularFireAuth,
         private fireDAO: AngularFirestore,
-        private store: Store
+        private store: Store,
+        private toastController: ToastController,
+        private router : Router
         ) {
             this.fireAuth.onIdTokenChanged(async(user) => {
                 if (user) {
@@ -21,11 +24,30 @@ export class AuthService {
             })
         }
 
+        async presentToast() {
+            const toast = await this.toastController.create({
+              message: 'Please verify your email address',
+              position: 'bottom',
+              color: "dark",
+              buttons: [
+                {
+                  side: 'end',
+                  text: 'Go Back',
+                  handler: () => {
+                    this.router.navigate(['auth/login'])
+                  }
+                }
+              ]
+            });
+            toast.present();
+          }
+
     public signup(password: string, email: string, name : string) : Promise<string> {
         return this.fireAuth.createUserWithEmailAndPassword(email, password).then((res) => {
             res.user.updateProfile({displayName : name})
             
             res.user.sendEmailVerification().then(r => {
+                this.presentToast()
             })
             
             this.createUser(res.user.toJSON(), name)
