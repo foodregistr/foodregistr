@@ -8,7 +8,7 @@ import { UtilsService } from '../../utils/utils.service';
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
 })
-export class TabsComponent implements OnInit {
+export class TabsComponent {
 
   constructor(
     private menu: MenuController,
@@ -16,9 +16,6 @@ export class TabsComponent implements OnInit {
     private utilsService: UtilsService
     ) {}
   
-  ngOnInit(): void{
-    this.router.navigate(["tabs/day/register"])
-  }
 
 
   public goToToday() {
