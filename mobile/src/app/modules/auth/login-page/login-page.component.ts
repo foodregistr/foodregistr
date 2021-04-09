@@ -28,7 +28,7 @@ export class LoginPageComponent {
   async onSubmit(): Promise<void> {
     try {
       await this.authService.login(this.password, this.email)
-      this.router.navigate(["tabs/day/register"])
+      this.router.navigate(["tabs/day"])
     } catch (err) {
       this.invalidFields = true
     }
