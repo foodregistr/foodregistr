@@ -32,15 +32,16 @@ export class DayPageComponent implements OnInit {
     }
 
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
     //this.dayService.resetDailyFoodRegistries(this.foodTypes)
     this.foodTypes = this.dayService.getFoodTypes()
     this.dayDate = this.route.snapshot.paramMap.get("date") || this.utilsService.formatDate(new Date())
-    await this.getFoodRegistriesFromToday().then((data: any) => {
+    this.getFoodRegistriesFromToday().then((data: any) => {
       this.foodRegistries = this.dayService.mapPreviousRegistries(data)
+      const index = this.route.snapshot.queryParamMap.get("index") as unknown as number
+      this.slider.slideTo(index || this.getNextFoodIndex() || 0)
     })
-    const index = this.route.snapshot.queryParamMap.get("index") as unknown as number
-    this.slider.slideTo(index || this.getNextFoodIndex() || 0)
+    
   }
 
 
