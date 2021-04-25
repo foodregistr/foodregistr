@@ -13,7 +13,6 @@ import { WeekService } from "../week.service";
     @Input() registeredFoods: string[] = [];
     public foodTypes : string[]
     public date: Date;
-    public contains = [];
     
     constructor(private weekService: WeekService, private utilsService: UtilsService){}
 
