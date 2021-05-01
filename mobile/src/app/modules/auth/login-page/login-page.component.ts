@@ -29,9 +29,11 @@ export class LoginPageComponent {
   async onSubmit(): Promise<void> {
     try {
       await this.authService.login(this.password, this.email)
+      console.log("Me logee")
       this.router.navigate(["tabs/day"])
     } catch (err) {
       if(err.message == "Error: Please verify your email address."){
+        this.authService.deauthenticate()
         this.emailVerify = true
       }else {
         this.invalidFields = true

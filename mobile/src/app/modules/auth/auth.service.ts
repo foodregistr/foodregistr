@@ -63,7 +63,7 @@ export class AuthService {
         return this.fireAuth.signInWithEmailAndPassword(email, password)
         .then(async(res) => {
             if(!res.user.emailVerified){
-                throw new Error("Please verify your email address.")
+                throw Error("Please verify your email address.")
             }
             this.saveUserDataLocally(res)
         })

@@ -16,6 +16,7 @@ export class SignupPageComponent {
   showRepeatPassErr = false
   showMatchPassErr = false
   showRegisteredEmailErr = false
+  showAlphaNumericErr = false
 
   password  = "";
   email  = "";
@@ -71,7 +72,7 @@ export class SignupPageComponent {
   }
 
   private allFieldsAreOK(): boolean {
-    return (!this.showNullEmailErr && !this.showRepeatPassErr
+    return (!this.showNullEmailErr && !this.showRepeatPassErr && !this.showAlphaNumericErr
             && !this.showShortPassErr && !this.showNullNameErr && !this.showMatchPassErr)
   }
 
@@ -79,6 +80,7 @@ export class SignupPageComponent {
     this.showNullEmailErr = this.email == ""
     this.showRepeatPassErr = this.repeatPassword == ""
     this.showShortPassErr = this.password.length < 8
+    this.showAlphaNumericErr = !/[a-zA-Z]/g.test(this.password) || !/[0-9]/g.test(this.password)
     this.showNullNameErr = this.name == ""
     this.showMatchPassErr = (!this.showRepeatPassErr) && this.repeatPassword != this.password
 
