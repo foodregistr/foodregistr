@@ -53,7 +53,7 @@ export class SignupPageComponent {
     this.verifyField();
     if (this.allFieldsAreOK()) { 
       try {
-        await this.authService.signup(this.password, this.email, this.name)
+        this.authService.signup(this.password, this.email, this.name).then(res => this.authService.deauthenticate())
         
       } catch(err) {
         switch(err.message){

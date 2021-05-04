@@ -42,7 +42,7 @@ export class AuthService {
             toast.present();
           }
 
-    public signup(password: string, email: string, name : string) : Promise<string> {
+    public signup(password: string, email: string, name : string) : Promise<void> {
         return this.fireAuth.createUserWithEmailAndPassword(email, password).then((res) => {
             res.user.updateProfile({displayName : name})
             
@@ -51,8 +51,6 @@ export class AuthService {
             })
             
             this.createUser(res.user.toJSON(), name)
-            return (res.user.toJSON() as any).stsTokenManager.accessToken
-            
         })
         .catch((err) => {
             throw new Error(err)
